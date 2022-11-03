@@ -1,0 +1,59 @@
+﻿@model FilterViewModel
+
+
+<div class="d-flex justify-content-center align-items-center border border-primary rounded-1 p-2" style="background-color: rgba(52, 113, 235,.8)">
+    <form>
+        <div class="row">
+            @if (Model.ShowSearchBar)
+            {
+                <div class="col-12">
+                    <form class="input-group" asp-action="Search">
+                      <div class="form-outline">
+                        <input type="search" id="form1" class="form-control" />
+                        <label class="form-label" for="form1">Search for teams...</label>
+                      </div>
+                      <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-search"></i>
+                      </button>
+                    </form>
+                </div>
+            }
+
+            @if (Model.ShowFilterTitles)
+            {
+                <div class="col-12">
+                <div class="row">
+                    @foreach (var title in Model.FilterTitles)
+                    {
+                        
+                            <div class="col-2">
+                                <form asp-action="Search">
+                                    <button type="submit" class="btn btn-primary rounded-2">
+                                        @title
+                                    </button>
+                                </form>
+                            </div>
+                     
+                    }
+                       </div>
+                </div>
+            }
+
+            @if (Model.ShowDetailedFilter)
+            {
+                <div class="col-12">
+                   <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                       Button with data-target
+                     </button>
+                    <div class="collapse" id="collapseExample">
+                        @foreach (var option in Model.FilterOptions)
+                        {
+                            <p>@option</p>
+                        }
+                    </div>
+
+                </div>
+            }
+        </div>
+    </form>
+</div>

@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Index";
+}
+
+<link href="~/css/PagedList.css" rel="stylesheet"/>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+
+<div id="filtertable" class="loading loading-medium"></div>
+
+<div id="teamslist" class="loading loading-large"></div>
+
+<p class="text-danger" id="error"></p>
+
+@section Scripts{
+    <script>
+    $("#filtertable").load("/Teams/FilterTablePartial",function (response,status,xhr){
+                if ( status === 'error' ) {
+                    let msg = 'Sorry but there was an error: ';
+                    $( "#error" ).html( msg + xhr.status + " " + xhr.statusText );
+                  }
+                else{
+                 $("#filtertable").removeAttr("class"); 
+                }
+                });
+    
+        $("#teamslist").load("/Teams/TeamsListPartial",function (response,status,xhr){
+            if ( status === 'error' ) {
+                let msg = 'Sorry but there was an error: ';
+                $( "#error" ).html( msg + xhr.status + " " + xhr.statusText );
+              }
+            else{
+             $("#teamslist").removeAttr("class"); 
+            }
+            });
+    </script>
+}
+

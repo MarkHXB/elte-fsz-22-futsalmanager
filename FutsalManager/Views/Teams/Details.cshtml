@@ -1,0 +1,27 @@
+﻿@model int
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div id="teamdetails" class="loading loading-large"></div>
+
+<p class="text-danger" id="error"></p>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts{
+    <script>
+    $("#teamdetails").load("/Teams/TeamDetails?id="+@Model,function (response,status,xhr){
+                if ( status === 'error' ) {
+                    let msg = 'Sorry but there was an error: ';
+                    $( "#error" ).html( msg + xhr.status + " " + xhr.statusText );
+                  }
+                else{
+                 $("#teamdetails").removeAttr("class"); 
+                }
+                });
+    </script>
+}
