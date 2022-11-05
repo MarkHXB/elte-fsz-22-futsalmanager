@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 
 namespace FutsalManager.Models
@@ -35,9 +36,10 @@ namespace FutsalManager.Models
         public string LogoPath { get; set; } = string.Empty;
 
         [NotMapped]
-        [AllowedExtensionsAttribute(new[] { ".jpg",".jpeg",".jfif",".png"})]
-        [MaxFileSize(5*1024*1024)]
-        public IFormFile FileModel { get; set; }
+        [AllowedExtensionsAttribute(new[] { ".jpg", ".jpeg", ".jfif", ".png" })]
+        [MaxFileSize(5 * 1024 * 1024)]
+        [Display(Name = "Upload logo image")]
+        public IFormFile? FileModel { get; set; }
 
         public virtual ICollection<Player> Players { get; set; }
         public virtual ICollection<Transfer> Transfers { get; set; }

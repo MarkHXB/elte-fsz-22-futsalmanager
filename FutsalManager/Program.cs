@@ -8,6 +8,9 @@ using FutsalManager.Server.Configurations;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddRazorPages()
+    .AddRazorRuntimeCompilation();
+
 builder.Services.AddDbContext<DataContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("LocalConnection"));

@@ -11,7 +11,7 @@ build_property.RootNamespace = FutsalManager
 build_property.ProjectDir = C:\Users\bakon\Desktop\ELTE\WEB3 - C#\futsalmanager-mvc\FutsalManager\
 build_property.RazorLangVersion = 6.0
 build_property.SupportLocalizedComponentNames = 
-build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = true
 build_property.MSBuildProjectDirectory = C:\Users\bakon\Desktop\ELTE\WEB3 - C#\futsalmanager-mvc\FutsalManager
 build_property._RazorSourceGeneratorDebug = 
 
@@ -49,6 +49,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/bakon/Desktop/ELTE/WEB3 - C\#/futsalmanager-mvc/FutsalManager/Views/Players/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxheWVyc1xJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/bakon/Desktop/ELTE/WEB3 - C\#/futsalmanager-mvc/FutsalManager/Views/Players/_PlayersList.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxheWVyc1xfUGxheWVyc0xpc3QuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/bakon/Desktop/ELTE/WEB3 - C\#/futsalmanager-mvc/FutsalManager/Views/Shared/Error.cshtml]

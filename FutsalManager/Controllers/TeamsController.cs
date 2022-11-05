@@ -36,7 +36,6 @@ namespace FutsalManager.Controllers
         {
             return View();
         }
-
         // POST: Teams/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -59,15 +58,14 @@ namespace FutsalManager.Controllers
 
             if (team == null)
                 return RedirectToAction(nameof(Index));
-
+            
             return View(team);
         }
 
         // POST: Teams/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id,
-            [Bind("Id,Name,City,Email,PhoneNumber,FileModel,LogoPath")] Team team)
+        public async Task<IActionResult> Edit(int id, Team team)
         {
             if (id != team.Id)
             {

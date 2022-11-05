@@ -56,6 +56,7 @@ namespace FutsalManager.Controllers
                 await _playerService.CreatePlayerAsync(player);
                 return RedirectToAction(nameof(Index));
             }
+
             return View(player);
         }
 
@@ -75,7 +76,8 @@ namespace FutsalManager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,FirstName,LastName,Birthday,Age,IsActive,AttributeId,TeamId,PositionId")] Player player)
+        public async Task<IActionResult> Edit(int id,
+            [Bind("Id,FirstName,LastName,Birthday,Age,IsActive,AttributeId,TeamId,PositionId")] Player player)
         {
             if (id != player.Id)
             {
@@ -118,5 +120,21 @@ namespace FutsalManager.Controllers
                 return RedirectToAction(nameof(Index));
             return RedirectToAction(nameof(Delete), id);
         }
+
+        #region PARTIALS
+
+        [HttpGet]
+        public async Task<IActionResult> PlayersListPartial(int? page)
+        {
+            var players = await _playerService.GetPlayersAsync();
+
+            var pageNumber = page ?? 1;
+
+            var pagedPlayers = await players.ToPagedListAsync(pageNumber, 10);
+            
+            return PartialView("_PlayersList", pagedPlayers);
+        }
+
+        #endregion
     }
 }

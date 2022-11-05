@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "EJsIGyHpjt34GOxSYaMqHoTguZ37S991HKoN96JlUkZMb2WHP2WPurQEazGSPXu7JeCoRpf0qIcAYTtpeW/a/A==",
+  "dgSpecHash": "9UpjWEIXFjN/hHyBSEMPrYbB/D3lk4YMjn+kaUgduVqkXlvCyoHichgDkPqaTgowiFI2DOMImn6QfSwx7e+MCw==",
   "success": true,
   "projectFilePath": "C:\\Users\\bakon\\Desktop\\ELTE\\WEB3 - C#\\futsalmanager-mvc\\FutsalManager\\FutsalManager.csproj",
   "expectedPackageFiles": [
@@ -9,7 +9,9 @@
     "C:\\Users\\bakon\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
     "C:\\Users\\bakon\\.nuget\\packages\\messagepack.annotations\\2.1.152\\messagepack.annotations.2.1.152.nupkg.sha512",
     "C:\\Users\\bakon\\.nuget\\packages\\messagepackanalyzer\\2.1.152\\messagepackanalyzer.2.1.152.nupkg.sha512",
-    "C:\\Users\\bakon\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\6.0.0\\microsoft.aspnetcore.razor.language.6.0.0.nupkg.sha512",
+    "C:\\Users\\bakon\\.nuget\\packages\\microsoft.aspnetcore.mvc.razor.extensions\\6.0.10\\microsoft.aspnetcore.mvc.razor.extensions.6.0.10.nupkg.sha512",
+    "C:\\Users\\bakon\\.nuget\\packages\\microsoft.aspnetcore.mvc.razor.runtimecompilation\\6.0.10\\microsoft.aspnetcore.mvc.razor.runtimecompilation.6.0.10.nupkg.sha512",
+    "C:\\Users\\bakon\\.nuget\\packages\\microsoft.aspnetcore.razor.language\\6.0.10\\microsoft.aspnetcore.razor.language.6.0.10.nupkg.sha512",
     "C:\\Users\\bakon\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\5.0.0\\microsoft.bcl.asyncinterfaces.5.0.0.nupkg.sha512",
     "C:\\Users\\bakon\\.nuget\\packages\\microsoft.build\\17.0.0\\microsoft.build.17.0.0.nupkg.sha512",
     "C:\\Users\\bakon\\.nuget\\packages\\microsoft.build.framework\\17.0.0\\microsoft.build.framework.17.0.0.nupkg.sha512",
@@ -21,7 +23,7 @@
     "C:\\Users\\bakon\\.nuget\\packages\\microsoft.codeanalysis.csharp.scripting\\4.0.0\\microsoft.codeanalysis.csharp.scripting.4.0.0.nupkg.sha512",
     "C:\\Users\\bakon\\.nuget\\packages\\microsoft.codeanalysis.csharp.workspaces\\4.0.0\\microsoft.codeanalysis.csharp.workspaces.4.0.0.nupkg.sha512",
     "C:\\Users\\bakon\\.nuget\\packages\\microsoft.codeanalysis.features\\4.0.0\\microsoft.codeanalysis.features.4.0.0.nupkg.sha512",
-    "C:\\Users\\bakon\\.nuget\\packages\\microsoft.codeanalysis.razor\\6.0.0\\microsoft.codeanalysis.razor.6.0.0.nupkg.sha512",
+    "C:\\Users\\bakon\\.nuget\\packages\\microsoft.codeanalysis.razor\\6.0.10\\microsoft.codeanalysis.razor.6.0.10.nupkg.sha512",
     "C:\\Users\\bakon\\.nuget\\packages\\microsoft.codeanalysis.scripting.common\\4.0.0\\microsoft.codeanalysis.scripting.common.4.0.0.nupkg.sha512",
     "C:\\Users\\bakon\\.nuget\\packages\\microsoft.codeanalysis.visualbasic\\4.0.0\\microsoft.codeanalysis.visualbasic.4.0.0.nupkg.sha512",
     "C:\\Users\\bakon\\.nuget\\packages\\microsoft.codeanalysis.visualbasic.features\\4.0.0\\microsoft.codeanalysis.visualbasic.features.4.0.0.nupkg.sha512",

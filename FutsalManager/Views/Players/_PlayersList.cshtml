@@ -1,0 +1,92 @@
+﻿@using X.PagedList
+@using X.PagedList.Mvc.Core
+@model IPagedList<Player>
+
+<table class="table text-center mb-0 bg-white table-hover">
+    <thead class="bg-light">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Nationality)
+
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().LastName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Birthday)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Age)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().IsActive)
+        </th>
+
+        <th>
+            @Html.DisplayNameFor(model => model.First().Position)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Team)
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        var nat = item.Nationality[..2].ToLower();
+
+        <tr class="align-middle">
+
+            <td class="text-center">
+                <p>
+                    <img
+                        src="https://flagcdn.com/48x36/@(nat).png"
+                        srcset="https://flagcdn.com/96x72/@(nat).png 2x,
+                        https://flagcdn.com/144x108/@(nat).png 3x"
+                        width="16"
+                        height="12"
+                        alt="@item.Nationality">
+                </p>
+                <p>
+                    @Html.DisplayFor(modelItem => item.Nationality)
+                </p>
+
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Birthday)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @(item.IsActive ? "Yes" : "No")
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Position.Pos)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Team.Name)
+            </td>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-warning"><i class="bi bi-card-text"></i> Details</a>
+                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary"><i class="bi bi-pencil-square"></i> Edit</a>
+                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger"><i class="bi bi-person-dash-fill"></i> Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("PlayersListPartial", new { page }))

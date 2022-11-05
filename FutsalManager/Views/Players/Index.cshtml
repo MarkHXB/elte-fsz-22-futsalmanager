@@ -1,6 +1,4 @@
-﻿@model IEnumerable<FutsalManager.Models.Player>
-
-@{
+﻿@{
     ViewData["Title"] = "Index";
 }
 
@@ -9,69 +7,26 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Birthday)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Age)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IsActive)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Attribute)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Position)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Team)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Birthday)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Age)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IsActive)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Attribute.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Position.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Team.Id)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
+
+<div id="playerslist" class="loading loading-large"></div>
+
+<p class="text-danger" id="error"></p>
+
+<a asp-action="Edit" asp-route-id="3"><i class="fa-solid fa-pen-to-square"></i> Edit</a>
+
+
+@section Scripts{
+    <script>
+    $(document).ready(function () {
+         $("#playerslist").load("/Players/PlayersListPartial",function (response,status,xhr){
+                    if ( status === 'error' ) {
+                        let msg = 'Sorry but there was an error: ';
+                        $( "#error" ).html( msg + xhr.status + " " + xhr.statusText );
+                      }
+                    else{
+                     $("#playerslist").removeAttr("class"); 
+                    }
+                    })
+         });
+    </script>
 }
-    </tbody>
-</table>

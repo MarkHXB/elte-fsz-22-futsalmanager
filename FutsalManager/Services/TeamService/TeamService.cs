@@ -32,7 +32,6 @@ namespace FutsalManager.Services.TeamService
                 .FirstOrDefaultAsync(t => t.Id == id);
 
             return team;
-
         }
         public async Task<bool> UpdateTeamAsync(Team team)
         {

@@ -1,66 +1,152 @@
-﻿@model FutsalManager.Models.Player
+﻿@model Player
 
 @{
     ViewData["Title"] = "Details";
+    var nat = Model.Nationality[..2].ToLower();
+    var natUrl = $"https://flagcdn.com/108x81/{nat}.png";
 }
 
-<h1>Details</h1>
+<style>
 
-<div>
-    <h4>Player</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Birthday)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Birthday)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Age)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Age)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.IsActive)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.IsActive)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Attribute)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Attribute.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Position)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Position.Id)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Team)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Team.Id)
-        </dd>
-    </dl>
+.hidden{
+    display: none;
+}
+</style>
+
+<div class="card mt-2 mb-2">
+    <div class="card-header d-flex justify-content-between align-items-center bg-light" id="details-header">
+        <h3>Details</h3>
+        <div id="arrow-container">
+            <i class="hidden bi bi-arrow-up"></i>
+            <i class="bi bi-arrow-down"></i>
+        </div>
+    </div>
+    <div class="card-body" id="details-body" style="display: none">
+        <!-- Player information -->
+        <div class="row text-center">
+            <div class="col-sm-12 col-md-4 p-2">
+                @if (Model.IsActive)
+                {
+                    <h6>Current team</h6>
+                    <img src="@("~/uploads/teams/logos/" + Model.Team.LogoPath)" asp-append-version="true" class="w-50 rounded">
+                    <h3 class="mt-2 mb-2">@Model.Team.Name</h3>
+                }
+                else
+                {
+                    <h2>The player is currently inactive.</h2>
+                    <br/>
+                    <p class="text-muted">Have no team</p>
+                }
+
+            </div>
+            <div class="col-sm-12 col-md-8 p-2">
+                <h6>Details about player</h6>
+                <div id="name">
+                    <h3>Name</h3>
+                    <hr class="w-75 mx-auto"/>
+                    <p>@Model.FullName</p>
+                </div>
+                <div id="age">
+                    <h3>Age</h3>
+                    <hr class="w-75 mx-auto"/>
+                    <p>@Model.Age</p>
+                </div>
+                <div id="birthday">
+                    <h3>Birthday</h3>
+                    <hr class="w-75 mx-auto"/>
+                    <p>@Model.Birthday</p>
+                </div>
+                <div id="nationality">
+                    <h3>Nationaility</h3>
+                    <hr class="w-75 mx-auto"/>
+                    <img
+                        src="@natUrl"
+                        alt="@Model.Nationality">
+                    <p>@Model.Nationality</p>
+
+                </div>
+            </div>
+        </div>
+        <!-- Player information -->
+    </div>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+
+<div class="card mt-2 mb-2">
+    <div class="card-header d-flex justify-content-between align-items-center bg-light" id="attributes-header">
+        <h3>Skills</h3>
+        <div id="arrow-container">
+            <i class="hidden bi bi-arrow-up"></i>
+            <i class="bi bi-arrow-down"></i>
+        </div>
+    </div>
+    <div class="card-body" id="attributes-body" style="display: block; background: rgba(0,0,0,.4)">
+        <!-- Player attributes -->
+        <div class="row" id="attributes-table">
+            <div class="col-3">
+                <h2 class="attribute-value">@Model.Attribute.Dribbling</h2>
+                <h2 class="attribute-title">Dribbling</h2>
+            </div>
+            <div class="col-3">
+                <h2 class="attribute-value">@Model.Attribute.Passing</h2>
+                <h2 class="attribute-title">Passing</h2>
+            </div>
+            <div class="col-3">
+                <h2 class="attribute-value">75</h2>
+                <h2>Juggling</h2>
+            </div>
+            <div class="col-3">
+                <h2>@Model.Attribute.Shooting</h2>
+                <h2>Shooting</h2>
+            </div>
+            <div class="col-3">
+                <h2>@Model.Attribute.Tackling</h2>
+                <h2>Tackling</h2>
+            </div>
+            <div class="col-3">
+                <h2>@Model.Attribute.Reaction</h2>
+                <h2>Reaction</h2>
+            </div>
+            <div class="col-3">
+                <h2>@Model.Attribute.Vision</h2>
+                <h2>Vision</h2>
+            </div>
+            <div class="col-3">
+                <h2>@Model.Attribute.Positioning</h2>
+                <h2>Positioning</h2>
+            </div>
+
+        </div>
+        <!-- Player attributes -->
+    </div>
 </div>
+
+
+@section Scripts{
+    <script>
+    $(".card").find(".card-header").click(function() {
+        let $arrows = $(this).find("i");
+        $(this).parent().find(".card-body").slideToggle(function (){
+            $arrows.toggle();
+            });
+    });
+    $('#attributes-table').children().each(function(index, value) {
+      let att = $(this).find(".attribute-value");
+      if (att.text() > 90)
+          att.css("color","cyan");
+      else if (att.text() >= 85)
+          att.css("color","green"); 
+      else if (att.text() >= 50)
+         att.css("color","yellow"); 
+      else if (att.text() >= 35)
+          att.css("color","orange"); 
+      else
+          att.css("color","red"); 
+    });
+                    // $("#details-header").click(function() {
+                    //     let $arrows = $(this).find("i");
+                    //     $("#details-body").slideToggle(function() {
+                    //       $arrows.toggle();
+                    //     });
+                    // });
+                    </script>
+    }

@@ -1,4 +1,5 @@
-﻿namespace FutsalManager.Models
+﻿
+namespace FutsalManager.Models
 {
     public partial class Attribute
     {
