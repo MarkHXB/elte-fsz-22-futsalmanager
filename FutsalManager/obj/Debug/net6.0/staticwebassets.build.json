@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "z5vnJ66hlobbrnUCHhergm+1WADRN4xz/3PwcgyM968=",
+  "Hash": "ReX1RAVa5bf7As4/u3IlgpkTvWiyOxQBigGEtblFqfQ=",
   "Source": "FutsalManager",
   "BasePath": "_content/FutsalManager",
   "Mode": "Default",
@@ -134,6 +134,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\css\\PagedList.css"
+    },
+    {
+      "Identity": "C:\\Users\\bakon\\Desktop\\ELTE\\WEB3 - C#\\futsalmanager-mvc\\FutsalManager\\wwwroot\\css\\Player\\attribute.css",
+      "SourceId": "FutsalManager",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\bakon\\Desktop\\ELTE\\WEB3 - C#\\futsalmanager-mvc\\FutsalManager\\wwwroot\\",
+      "BasePath": "_content/FutsalManager",
+      "RelativePath": "css/Player/attribute.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\Player\\attribute.css"
+    },
+    {
+      "Identity": "C:\\Users\\bakon\\Desktop\\ELTE\\WEB3 - C#\\futsalmanager-mvc\\FutsalManager\\wwwroot\\css\\Player\\transfer.css",
+      "SourceId": "FutsalManager",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\bakon\\Desktop\\ELTE\\WEB3 - C#\\futsalmanager-mvc\\FutsalManager\\wwwroot\\",
+      "BasePath": "_content/FutsalManager",
+      "RelativePath": "css/Player/transfer.css",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\css\\Player\\transfer.css"
     },
     {
       "Identity": "C:\\Users\\bakon\\Desktop\\ELTE\\WEB3 - C#\\futsalmanager-mvc\\FutsalManager\\wwwroot\\css\\site.css",

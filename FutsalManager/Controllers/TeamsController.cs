@@ -26,9 +26,14 @@ namespace FutsalManager.Controllers
         }
 
         // GET: Teams/Details/5
-        public IActionResult Details(int? id)
+        public async Task<IActionResult> Details(int? id)
         {
-            return View(id ?? 0);
+            var team = await _teamService.GetTeamAsync(id);
+
+            if (team == null)
+                return RedirectToAction(nameof(Index));
+
+            return View(team);
         }
 
         // GET: Teams/Create
@@ -137,15 +142,7 @@ namespace FutsalManager.Controllers
             return PartialView("_FilterTable", model);
         }
         
-        public async Task<IActionResult> TeamDetails(int? id)
-        {
-            var team = await _teamService.GetTeamAsync(id);
-
-            if (team == null)
-                return RedirectToAction(nameof(Index));
-            
-            return PartialView("_TeamDetails", team);
-        }
+       
         #endregion
     }
 }

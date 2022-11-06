@@ -1,27 +1,125 @@
-﻿@model int
+﻿@model Team
 
 @{
     ViewData["Title"] = "Details";
 }
 
-<div id="teamdetails" class="loading loading-large"></div>
-
-<p class="text-danger" id="error"></p>
-
 <div>
-    <a asp-action="Index">Back to List</a>
+    <!-- INFORMATIONS ABOUT TEAM -->
+    <div class="row border border-dark rounded-1 m-2 p-1">
+        <i class="text-muted">
+            <h4>Details</h4>
+        </i>
+        <div class="col-sm-12 col-md-4 text-center">
+            <img src="@("~/uploads/teams/logos/" + Model.LogoPath)" asp-append-version="true" class="w-75">
+            <h6 class="mt-3 mb-3">Rating: 93 DEV</h6>
+        </div>
+        <div class="col-sm-12 col-md-8 text-center">
+            <h4>
+                @Html.DisplayFor(model => model.Name)
+            </h4>
+            <hr class="w-75"/>
+            <div class="row">
+                <div class="col rounded-3 d-flex justify-content-center flex-column align-items-center m-3 p-1"
+                     style="background-color: rgba(0,123,255,.7);color: white">
+                    <strong>
+                        @Html.DisplayNameFor(model => model.City)
+                    </strong>
+
+                    <hr class="w-50" style="color:rgba(0,0,0,0.5)"/>
+                    @Html.DisplayFor(model => model.City)
+                </div>
+                <div class="col rounded-3 d-flex justify-content-center flex-column align-items-center m-3 p-1"
+                     style="background-color: rgba(0,123,255,.7);color: white">
+                    <strong>
+                        @Html.DisplayNameFor(model => model.Email)
+
+                    </strong>
+                    <hr class="w-50" style="color:rgba(0,0,0,0.5)"/>
+                    @Html.DisplayFor(model => model.Email)
+                </div>
+                <div class="col rounded-3 d-flex justify-content-center flex-column align-items-center m-3 p-1"
+                     style="background-color: rgba(0,123,255,.7);color: white">
+                    <strong>
+                        @Html.DisplayNameFor(model => model.PhoneNumber)
+                    </strong>
+                    <hr class="w-50" style="color:rgba(0,0,0,0.5)"/>
+                    @Html.DisplayFor(model => model.PhoneNumber)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TEAM'S PLAYRES -->
+    <div class="row border border-dark rounded-1 m-2 p-1">
+        <i class="text-muted">
+            <h4>Team's players</h4>
+        </i>
+        @if (Model.Players.Any())
+        {
+            <div class="row">
+                @foreach (var player in Model.Players)
+                {
+                    <!-- PLAYER CARD -->
+                    <div class="col card d-flex justify-content-center flex-column p-1 m-2" style="max-width: 300px;">
+                        <div class="row">
+                            <div class="col-4">
+                                <!--OVERALL RATING-->
+                                <strong>
+                                    <h5>
+                                        @PlayerFunctions.GetOverallRating(player)
+                                    </h5>
+                                </strong>
+                                <!--POSITION-->
+                                @player.Position?.Pos
+
+                                <!--NATIONAILTY-->
+                                @player.Nationality
+
+                                <!--TEAM'S LOGO-->
+                                <img src="@("~/uploads/teams/logos/" + Model.LogoPath)" asp-append-version="true" class="w-100">
+                            </div>
+                            <!-- FUTURE DEVELOPMENT -- PROFILE PICTURE -->
+                            <div class="col-8">
+
+                            </div>
+                        </div>
+                        <hr/>
+                        <div class="row text-center">
+                            <div class="col-12">@player.FullName</div>
+                        </div>
+                        <hr/>
+                        <div class="row text-center">
+                            <div class="col-sm-12 col-md-6">
+                                <dl>
+                                    <dt>@player.Attribute.Juggling</dt>
+                                    <dd>Jug</dd>
+                                    <dt>@player.Attribute.Shooting</dt>
+                                    <dd>Pac</dd>
+                                    <dt>@player.Attribute.Passing</dt>
+                                    <dd>Pas</dd>
+                                </dl>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <dl>
+                                    <dt>@player.Attribute.Reaction</dt>
+                                    <dd>Rea</dd>
+                                    <dt>@player.Attribute.Tackling</dt>
+                                    <dd>Tac</dd>
+                                    <dt>@player.Attribute.Vision</dt>
+                                    <dd>Vis</dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        @if(Model.Players.Count <= 5)
+        {
+            <a asp-controller="Transfers" asp-action="Index">Transfer players</a>
+        }
+    </div>
 </div>
 
-@section Scripts{
-    <script>
-    $("#teamdetails").load("/Teams/TeamDetails?id="+@Model,function (response,status,xhr){
-                if ( status === 'error' ) {
-                    let msg = 'Sorry but there was an error: ';
-                    $( "#error" ).html( msg + xhr.status + " " + xhr.statusText );
-                  }
-                else{
-                 $("#teamdetails").removeAttr("class"); 
-                }
-                });
-    </script>
-}
+<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>

@@ -6,6 +6,9 @@
     var natUrl = $"https://flagcdn.com/108x81/{nat}.png";
 }
 
+<link rel="stylesheet" href="~/css/Player/attribute.css"/>
+<link rel="stylesheet" href="~/css/Player/transfer.css"/>
+
 <style>
 
 .hidden{
@@ -21,10 +24,10 @@
             <i class="bi bi-arrow-down"></i>
         </div>
     </div>
-    <div class="card-body" id="details-body" style="display: none">
+    <div class="card-body" id="details-body" style="display: block">
         <!-- Player information -->
         <div class="row text-center">
-            <div class="col-sm-12 col-md-4 p-2">
+            <div class="col-sm-12 col-md-4 p-2 d-flex flex-column justify-content-center align-items-center">
                 @if (Model.IsActive)
                 {
                     <h6>Current team</h6>
@@ -79,44 +82,88 @@
             <i class="bi bi-arrow-down"></i>
         </div>
     </div>
-    <div class="card-body" id="attributes-body" style="display: block; background: rgba(0,0,0,.4)">
+    <div class="card-body" id="attributes-body" style="display: none;">
         <!-- Player attributes -->
-        <div class="row" id="attributes-table">
-            <div class="col-3">
+        <div class="row text-center d-flex justify-content-center" id="attributes-table">
+            <div class="col-sm-12 col-md-4 m-2 attribute-box">
                 <h2 class="attribute-value">@Model.Attribute.Dribbling</h2>
                 <h2 class="attribute-title">Dribbling</h2>
             </div>
-            <div class="col-3">
+            <div class="col-sm-12 col-md-4 m-2 attribute-box">
                 <h2 class="attribute-value">@Model.Attribute.Passing</h2>
                 <h2 class="attribute-title">Passing</h2>
             </div>
-            <div class="col-3">
-                <h2 class="attribute-value">75</h2>
+            <div class="col-sm-12 col-md-4 m-2 attribute-box">
+                <h2 class="attribute-value">@Model.Attribute.Juggling</h2>
                 <h2>Juggling</h2>
             </div>
-            <div class="col-3">
-                <h2>@Model.Attribute.Shooting</h2>
+            <div class="col-sm-12 col-md-4 m-2 attribute-box">
+                <h2 class="attribute-value">@Model.Attribute.Shooting</h2>
                 <h2>Shooting</h2>
             </div>
-            <div class="col-3">
-                <h2>@Model.Attribute.Tackling</h2>
+            <div class="col-sm-12 col-md-4 m-2 attribute-box">
+                <h2 class="attribute-value">@Model.Attribute.Tackling</h2>
                 <h2>Tackling</h2>
             </div>
-            <div class="col-3">
-                <h2>@Model.Attribute.Reaction</h2>
+            <div class="col-sm-12 col-md-4 m-2 attribute-box">
+                <h2 class="attribute-value">@Model.Attribute.Reaction</h2>
                 <h2>Reaction</h2>
             </div>
-            <div class="col-3">
-                <h2>@Model.Attribute.Vision</h2>
+            <div class="col-sm-12 col-md-4 m-2 attribute-box">
+                <h2 class="attribute-value">@Model.Attribute.Vision</h2>
                 <h2>Vision</h2>
             </div>
-            <div class="col-3">
-                <h2>@Model.Attribute.Positioning</h2>
+            <div class="col-sm-12 col-md-4 m-2 attribute-box">
+                <h2 class="attribute-value">@Model.Attribute.Positioning</h2>
                 <h2>Positioning</h2>
             </div>
 
         </div>
         <!-- Player attributes -->
+    </div>
+</div>
+
+<div class="card mt-2 mb-2">
+    <div class="card-header d-flex justify-content-between align-items-center bg-light" id="transfers-header">
+        <h3>Transfer history</h3>
+        <div id="arrow-container">
+            <i class="hidden bi bi-arrow-up"></i>
+            <i class="bi bi-arrow-down"></i>
+        </div>
+    </div>
+
+    <div class="card-body" id="transfers-body" style="display: none;">
+        <!-- Player transfer history -->
+ 
+        @if (Model.Transfers.Any())
+        {  
+            <section class="py-5">
+                <ul class="timeline-with-icons">
+                    @foreach(var transfer in Model.Transfers.OrderByDescending(t=>t.History).ToList())
+                    {  
+                        <li class="timeline-item mb-5">
+                            <span class="timeline-icon">
+                                <img class="w-100 rounded" src="~/uploads/teams/logos/@transfer.Team.LogoPath" alt="team' logo"/>
+                            </span>
+ 
+                            <h5 class="fw-bold">@transfer.Team.Name</h5>
+                            <p class="text-muted mb-2 fw-bold">@transfer.History.ToShortDateString()</p>
+                            <p class="text-muted">
+                                asdőpsődpsld
+                            </p>
+                        </li>
+
+                        <hr />
+                    }
+                </ul>
+            </section>
+        }
+        else
+        {
+            <h1>No transfers found.</h1>
+        }
+
+        <!-- Player transfer history -->
     </div>
 </div>
 
@@ -132,15 +179,36 @@
     $('#attributes-table').children().each(function(index, value) {
       let att = $(this).find(".attribute-value");
       if (att.text() > 90)
-          att.css("color","cyan");
+          {
+               att.css("color","rgb(3,111,252)");
+               $(this).addClass("attribute-box-cyan");
+              }
+         
       else if (att.text() >= 85)
-          att.css("color","green"); 
+          {
+                        att.css("color","green"); 
+
+              $(this).addClass("attribute-box-green");
+              }
       else if (att.text() >= 50)
-         att.css("color","yellow"); 
+          {
+                       att.css("color","yellow"); 
+$(this).addClass("attribute-box-yellow");
+              }
       else if (att.text() >= 35)
-          att.css("color","orange"); 
+          {
+               att.css("color","orange"); 
+                                        $(this).addClass("attribute-box-orange");
+
+              }
       else
-          att.css("color","red"); 
+          {
+              
+                                     $(this).addClass("attribute-box-red");                 
+                        att.css("color","red"); 
+
+              }
+      
     });
                     // $("#details-header").click(function() {
                     //     let $arrows = $(this).find("i");
@@ -149,4 +217,4 @@
                     //     });
                     // });
                     </script>
-    }
+}

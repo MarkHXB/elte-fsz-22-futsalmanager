@@ -1,0 +1,25 @@
+﻿.attribute-box{
+    border-width:4px;
+    border-style:solid;
+}
+
+.attribute-box-red{
+    box-shadow: rgba(240, 2, 2,.7) 0px 7px 29px 0px;
+    border-color:rgb(240, 2, 2);
+}
+.attribute-box-orange{
+    box-shadow: rgba(247, 111, 0,.7) 0px 7px 29px 0px;
+    border-color:rgb(247, 111, 0);
+}
+.attribute-box-yellow{
+    box-shadow: rgba(244, 252, 0, .7) 0px 7px 29px 0px;
+    border-color:rgb(244, 252, 0);
+}
+.attribute-box-green{
+    box-shadow: rgba(12, 148, 30,.7) 0px 7px 29px 0px;
+    border-color:rgb(12, 148, 30);
+}
+.attribute-box-cyan {
+    box-shadow: rgba(3, 111, 252) 0px 7px 29px 0px;
+    border-color: rgb(3, 111, 252);
+}
