@@ -49,15 +49,12 @@ namespace FutsalManager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,City,Email,PhoneNumber")] Player player)
+        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Birthday,Age,Nationality")] Player player)
         {
-            if (ModelState.IsValid)
-            {
-                await _playerService.CreatePlayerAsync(player);
-                return RedirectToAction(nameof(Index));
-            }
-
-            return View(player);
+            if (!ModelState.IsValid || !PlayerFunctions.ValidateNationality(player.Nationality)) return View(player);
+            
+            await _playerService.CreatePlayerAsync(player);
+            return RedirectToAction(nameof(Index));
         }
 
         // GET: Players/Edit/5
