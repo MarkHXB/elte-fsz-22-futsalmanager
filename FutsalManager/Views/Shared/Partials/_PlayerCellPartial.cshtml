@@ -1,0 +1,38 @@
+﻿@model Player
+
+@{
+    var nat = Model.Nationality[..2].ToLower();
+    var actionUrl = ViewData["actionurl"];
+    var actionTitle = ViewData["actiontitle"];
+}
+
+<tr class="shadow-sm box h-100">
+    <td>
+        <img src="~/uploads/teams/logos/@Model?.Team?.LogoPath" alt="team's logo" style="max-width:5rem" class="rounded">
+    </td>
+    <td>
+        <h4>@Html.DisplayFor(modelItem => Model!.FullName)</h4>
+    </td>
+
+    <td>
+        <p class="d-none">@Html.DisplayFor(modelItem => Model!.Nationality)</p>
+        <img
+            src="https://flagcdn.com/96x72/@(nat).png"
+            width="56"
+            height="42"
+            alt="@Model?.Nationality">
+    </td>
+
+    <td>
+        @Html.DisplayFor(modelItem => Model!.Age)
+    </td>
+
+    <td>
+        <strong>@PlayerFunctions.GetOverallRating(Model)</strong>
+    </td>
+
+    <td>
+        <a href="@actionUrl" class="btn btn-primary" id="playerpartialactionbutton">@actionTitle</a>
+    </td>
+
+</tr>

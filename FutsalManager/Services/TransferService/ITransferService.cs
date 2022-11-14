@@ -2,7 +2,8 @@
 {
     public interface ITransferService
     {
-        Task CreateTransferAsync(Transfer transfer);
+        Task<bool> SaveTransferAsync(Transfer transfer);
+        Task<bool> CreateTransferAsync(Player? player, Team? team);
         Task<List<Transfer>> GetTransfersAsync();
         Task<Transfer?> GetTransferAsync(int? id);
     }

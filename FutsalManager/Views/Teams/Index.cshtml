@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<Team>
+
+@{
     ViewData["Title"] = "Index";
 }
 
@@ -8,33 +10,20 @@
     <a asp-action="Create">Create New</a>
 </p>
 
-<div id="filtertable" class="loading loading-medium"></div>
+<div class="container-fluid">
 
-<div id="teamslist" class="loading loading-large"></div>
-
-<p class="text-danger" id="error"></p>
-
-@section Scripts{
-    <script>
-    $("#filtertable").load("/Teams/FilterTablePartial",function (response,status,xhr){
-                if ( status === 'error' ) {
-                    let msg = 'Sorry but there was an error: ';
-                    $( "#error" ).html( msg + xhr.status + " " + xhr.statusText );
-                  }
-                else{
-                 $("#filtertable").removeAttr("class"); 
-                }
-                });
-    
-        $("#teamslist").load("/Teams/TeamsListPartial",function (response,status,xhr){
-            if ( status === 'error' ) {
-                let msg = 'Sorry but there was an error: ';
-                $( "#error" ).html( msg + xhr.status + " " + xhr.statusText );
-              }
-            else{
-             $("#teamslist").removeAttr("class"); 
-            }
-            });
-    </script>
-}
-
+    <h5 class="d-flex justify-content-end">Count of teams: @Model.Count()</h5>
+    <div class="row">
+        @foreach (var team in Model)
+        {
+            var viewdata = new ViewDataDictionary(ViewData)
+            {
+                { "viewmodel", "crud" },
+            };
+            
+            <div class="col-4">
+                <partial name="Partials/_TeamCardPartial" model="@team" view-data="viewdata"/>
+            </div>
+        }
+    </div>
+</div>

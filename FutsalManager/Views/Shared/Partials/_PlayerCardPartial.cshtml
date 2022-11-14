@@ -1,0 +1,89 @@
+﻿@model Player
+@{
+    var nat = Model.Nationality[..2].ToLower();
+    string mode = ViewData["viewmodel"] as string ?? string.Empty;
+    bool activity = !Model.IsActive;
+}
+
+<style>
+    .bi-bookmark-check-fill{
+    color:green;
+font-size: 1.3em;
+margin-left: 0.5em;
+    }
+     
+    .bi-bookmark-dash-fill{
+    color:red;
+    font-size: 1.3em;
+    margin-left: 0.5em;
+    }
+</style>
+
+<div class="card text-center m-1" style="max-width: 18rem;">
+    <span class="d-flex justify-content-end align-items-center p-1">
+        <strong>@(Model.IsActive ? "Active" : "Inactive")</strong>
+        @if (Model.IsActive)
+        {
+            <i class="bi bi-bookmark-check-fill "></i>
+        }
+        else
+        {
+            <i class="bi bi-bookmark-dash-fill"></i>
+        }
+    </span>
+    <img src="@("~/uploads/teams/logos/" + Model?.Team?.LogoPath)" asp-append-version="true" class="card-img-top" alt="team's logo">
+    <div class="card-body">
+        <h5 class="card-title text-center">@Model.FullName</h5>
+        <table class="table text-center">
+            <thead>
+            <tr>
+                <th>Rating</th>
+                <th>Position</th>
+                <th>Nationality</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <strong id="playerrating">@PlayerFunctions.GetOverallRating(Model)</strong>
+                </td>
+                <td>
+                    @Model.Position?.Pos
+                </td>
+                <td>
+                    <img
+                        src="https://flagcdn.com/96x72/@(nat).png"
+                        width="48"
+                        height="32"
+                        alt="@Model.Nationality">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="row">
+            <a asp-controller="Players" asp-action="Details" asp-route-id="@Model.Id" class="col col-12 p-1 mt-1 btn btn-primary">View details</a>
+            @if (mode == "crud")
+            {
+                <a asp-controller="Players" asp-action="Edit" asp-route-id="@Model.Id" class="col col-12 p-1 mt-1 btn btn-primary">Edit</a>
+                <a asp-controller="Players" asp-action="Delete" asp-route-id="@Model.Id" class="col col-12 p-1 mt-1 btn btn-danger">Delete</a>
+            }
+            else if (mode == "search")
+            {
+                <a
+                    asp-controller="Players"
+                    asp-action="SetActivity"
+                    asp-route-id="@Model.Id"
+                    asp-route-activity="@activity"
+                    class="col col-12 p-1 mt-1 btn btn-@(Model.IsActive ? "success" : "warning")">
+                    @(Model.IsActive ? "Inactivate" : "Activate")
+                </a>
+            }
+             else if (mode == "transfer")
+             {
+                 <a asp-controller="Transfers" asp-action="TeamsIndex" asp-route-playerid="@Model.Id" class="col col-12 p-1 mt-1 btn btn-primary">Choose to transfer</a>
+             }
+            
+        </div>
+    </div>
+</div>

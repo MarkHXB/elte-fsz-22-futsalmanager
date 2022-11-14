@@ -6,7 +6,9 @@
     --dark-bg-color:#404258;
     --dark-text-color:#ffffff;
 }
-
+body{
+    scroll-behavior: smooth;
+}
 
 
 html {

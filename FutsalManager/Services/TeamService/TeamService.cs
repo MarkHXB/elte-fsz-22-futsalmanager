@@ -54,5 +54,16 @@ namespace FutsalManager.Services.TeamService
 
             return (await _context.SaveChangesAsync()) > 0;
         }
+        public async Task<List<Team>> SearchTeamsAsync(string searchstring)
+        {
+            var result = new List<Team>();
+            
+            if (string.IsNullOrEmpty(searchstring)) return result;
+
+            result = await _context.Teams.Where(p => p.Name.ToLower().Contains(searchstring.ToLower()))
+                .ToListAsync();
+
+            return result;
+        }
     }
 }

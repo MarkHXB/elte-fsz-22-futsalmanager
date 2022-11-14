@@ -2,7 +2,7 @@ global using FutsalManager.Models;
 global using FutsalManager.Data;
 global using FutsalManager.Common;
 global using FutsalManager.Extensions;
-
+global using FutsalManager.Models.History;
 using Microsoft.EntityFrameworkCore;
 using FutsalManager.Server.Configurations;
 
@@ -21,7 +21,12 @@ builder.Services.AddWebServices(builder.Configuration);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.Services.AddDistributedMemoryCache();  
+builder.Services.AddSession(options => {  
+    options.IdleTimeout = TimeSpan.FromMinutes(1);//You can set Time   
+});  
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -33,6 +38,9 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
+
+app.UseSession();
+
 
 app.UseRouting();
 

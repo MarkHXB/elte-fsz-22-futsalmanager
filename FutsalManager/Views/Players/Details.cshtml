@@ -14,25 +14,52 @@
 .hidden{
     display: none;
 }
-</style>
+.action-icon{
+margin-left:20px;
+margin-right: 20px;
+font-size: 2rem; 
+}
 
+</style>
+<div class="container d-flex justify-content-end align-items-center m-3">
+    <a class="action-icon" asp-controller="Players" asp-action="Edit" asp-route-id="@Model.Id">
+        <i class="bi bi-pencil-square" style="color: blue;"></i>
+    </a>
+    <a class="action-icon" asp-controller="Transfers" asp-action="Index" asp-route-playerid="@Model.Id">
+        <i class="bi bi-binoculars" style="color:green"></i>
+    </a>
+    <a class="action-icon" asp-controller="Players" asp-action="Delete" asp-route-id="@Model.Id">
+        <i class="bi bi-person-dash" style="color: red;"></i>
+    </a>
+    @if (Model.Team != null)
+    {
+        <a class="action-icon" asp-controller="Teams" asp-action="Details" asp-route-id="@Model.Team.Id">
+            <i class="bi bi-people" style="color: purple;"></i>
+        </a>
+    }
+</div>
+
+<!--DETAILS-->
 <div class="card mt-2 mb-2">
     <div class="card-header d-flex justify-content-between align-items-center bg-light" id="details-header">
         <h3>Details</h3>
         <div id="arrow-container">
-            <i class="hidden bi bi-arrow-up"></i>
-            <i class="bi bi-arrow-down"></i>
+            <i class="hidden bi bi-arrow-up" style="font-size: 1.5rem"></i>
+            <i class="bi bi-arrow-down" style="font-size: 1.5rem"></i>
         </div>
     </div>
     <div class="card-body" id="details-body" style="display: block">
         <!-- Player information -->
+        <a class="action-icon d-flex justify-content-end" asp-controller="Players" asp-action="Edit" asp-route-id="@Model.Id">
+            <i class="bi bi-pencil-square" style="color: blue;"></i>
+        </a>
         <div class="row text-center">
-            <div class="col-sm-12 col-md-4 p-2 d-flex flex-column justify-content-center align-items-center">
-                @if (Model.IsActive)
+            <div class="col col-sm-12 col-md-12 col-lg-6 p-2 d-flex flex-column justify-content-center align-items-center">
+                @if (Model.Team != null)
                 {
                     <h6>Current team</h6>
-                    <img src="@("~/uploads/teams/logos/" + Model.Team.LogoPath)" asp-append-version="true" class="w-50 rounded">
-                    <h3 class="mt-2 mb-2">@Model.Team.Name</h3>
+                    <img src="@("~/uploads/teams/logos/" + Model?.Team?.LogoPath)" asp-append-version="true" class="w-50 rounded">
+                    <h3 class="mt-2 mb-2">@Model?.Team?.Name</h3>
                 }
                 else
                 {
@@ -42,31 +69,47 @@
                 }
 
             </div>
-            <div class="col-sm-12 col-md-8 p-2">
+            <div class="col col-sm-12 col-md-12 col-lg-6 p-2 ">
                 <h6>Details about player</h6>
+
+                <hr class="w-50 mx-auto"/>
+
                 <div id="name">
-                    <h3>Name</h3>
-                    <hr class="w-75 mx-auto"/>
-                    <p>@Model.FullName</p>
+                    <span class="badge bg-secondary p-2 mb-2">Name</span>
+                    <h4>@Model.FullName</h4>
                 </div>
+
+                <hr class="w-75 mx-auto"/>
+
                 <div id="age">
-                    <h3>Age</h3>
-                    <hr class="w-75 mx-auto"/>
-                    <p>@Model.Age</p>
+                    <span class="badge bg-secondary p-2 mb-2">Age</span>
+                    <h4>@Model.Age</h4>
                 </div>
+
+                <hr class="w-75 mx-auto"/>
+
                 <div id="birthday">
-                    <h3>Birthday</h3>
-                    <hr class="w-75 mx-auto"/>
-                    <p>@Model.Birthday</p>
+
+                    <span class="badge bg-secondary p-2 mb-2">Birthday</span>
+                    <h4>@Model.Birthday.ToShortDateString()</h4>
                 </div>
-                <div id="nationality">
-                    <h3>Nationaility</h3>
-                    <hr class="w-75 mx-auto"/>
+
+                <hr class="w-75 mx-auto"/>
+
+                <div id="nationality" class="text-center">
                     <img
                         src="@natUrl"
-                        alt="@Model.Nationality">
+                        alt="@Model.Nationality"
+                        style="max-width:100px;">
                     <p>@Model.Nationality</p>
 
+                </div>
+
+                <hr class="w-75 mx-auto"/>
+
+                <div id="activity">
+                    <span class="badge bg-@(Model.IsActive ? "success" : "warning") p-2 mb-2">Is active?</span>
+                    <h4>@(Model.IsActive ? "Yes" : "No")</h4>
                 </div>
             </div>
         </div>
@@ -74,6 +117,50 @@
     </div>
 </div>
 
+@if (Model.Team != null)
+{
+    <!--TEAM PLAYERS-->
+    <div class="card mt-2 mb-2">
+        <div class="card-header d-flex justify-content-between align-items-center bg-light" id="teamplayers-header">
+            <h3>Team's players</h3>
+            <div id="arrow-container">
+                <i class="hidden bi bi-arrow-up" style="font-size: 1.5rem"></i>
+                <i class="bi bi-arrow-down" style="font-size: 1.5rem"></i>
+            </div>
+        </div>
+        <div class="card-body" id="teamplayers-body" style="display: block">
+            <!-- Players -->
+            @if (Model.Team.Players.Any())
+            {
+                <div class="row text-center">
+                    @foreach (var player in Model.Team.Players)
+                    {
+                        @if (player.Id == Model.Id)
+                        {
+                            <div class="col col-sm-12 col-md-6 col-lg-4 col-xl-3" style="pointer-events:none;opacity:0.6">
+                                <partial name="Partials/_PlayerCardPartial" model="@player"/>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                                <partial name="Partials/_PlayerCardPartial" model="@player"/>
+                            </div>
+                        }
+                    }
+
+                </div>
+            }
+            else
+            {
+                <h3>Team is empty!</h3>
+            }
+
+        </div>
+    </div>
+}
+
+<!--SKILLS-->
 <div class="card mt-2 mb-2">
     <div class="card-header d-flex justify-content-between align-items-center bg-light" id="attributes-header">
         <h3>Skills</h3>
@@ -83,46 +170,59 @@
         </div>
     </div>
     <div class="card-body" id="attributes-body" style="display: none;">
-        <!-- Player attributes -->
-        <div class="row text-center d-flex justify-content-center" id="attributes-table">
-            <div class="col-sm-12 col-md-4 m-2 attribute-box">
-                <h2 class="attribute-value">@Model.Attribute.Dribbling</h2>
-                <h2 class="attribute-title">Dribbling</h2>
-            </div>
-            <div class="col-sm-12 col-md-4 m-2 attribute-box">
-                <h2 class="attribute-value">@Model.Attribute.Passing</h2>
-                <h2 class="attribute-title">Passing</h2>
-            </div>
-            <div class="col-sm-12 col-md-4 m-2 attribute-box">
-                <h2 class="attribute-value">@Model.Attribute.Juggling</h2>
-                <h2>Juggling</h2>
-            </div>
-            <div class="col-sm-12 col-md-4 m-2 attribute-box">
-                <h2 class="attribute-value">@Model.Attribute.Shooting</h2>
-                <h2>Shooting</h2>
-            </div>
-            <div class="col-sm-12 col-md-4 m-2 attribute-box">
-                <h2 class="attribute-value">@Model.Attribute.Tackling</h2>
-                <h2>Tackling</h2>
-            </div>
-            <div class="col-sm-12 col-md-4 m-2 attribute-box">
-                <h2 class="attribute-value">@Model.Attribute.Reaction</h2>
-                <h2>Reaction</h2>
-            </div>
-            <div class="col-sm-12 col-md-4 m-2 attribute-box">
-                <h2 class="attribute-value">@Model.Attribute.Vision</h2>
-                <h2>Vision</h2>
-            </div>
-            <div class="col-sm-12 col-md-4 m-2 attribute-box">
-                <h2 class="attribute-value">@Model.Attribute.Positioning</h2>
-                <h2>Positioning</h2>
-            </div>
+        <a class="action-icon d-flex justify-content-end" asp-controller="Players" asp-action="Edit" asp-route-id="@Model.Id">
+            <i class="bi bi-pencil-square" style="color: blue;"></i>
+        </a>
+        @if (Model.Attribute != null)
+        {
+            <!-- Player attributes -->
+            <div class="row text-center d-flex justify-content-center" id="attributes-table">
 
-        </div>
-        <!-- Player attributes -->
+                <div class="col-sm-12 col-md-4 m-2 attribute-box">
+                    <h2 class="attribute-value">@Model.Attribute.Dribbling</h2>
+                    <h2 class="attribute-title">Dribbling</h2>
+                </div>
+                <div class="col-sm-12 col-md-4 m-2 attribute-box">
+                    <h2 class="attribute-value">@Model.Attribute.Passing</h2>
+                    <h2 class="attribute-title">Passing</h2>
+                </div>
+                <div class="col-sm-12 col-md-4 m-2 attribute-box">
+                    <h2 class="attribute-value">@Model.Attribute.Juggling</h2>
+                    <h2>Juggling</h2>
+                </div>
+                <div class="col-sm-12 col-md-4 m-2 attribute-box">
+                    <h2 class="attribute-value">@Model.Attribute.Shooting</h2>
+                    <h2>Shooting</h2>
+                </div>
+                <div class="col-sm-12 col-md-4 m-2 attribute-box">
+                    <h2 class="attribute-value">@Model.Attribute.Tackling</h2>
+                    <h2>Tackling</h2>
+                </div>
+                <div class="col-sm-12 col-md-4 m-2 attribute-box">
+                    <h2 class="attribute-value">@Model.Attribute.Reaction</h2>
+                    <h2>Reaction</h2>
+                </div>
+                <div class="col-sm-12 col-md-4 m-2 attribute-box">
+                    <h2 class="attribute-value">@Model.Attribute.Vision</h2>
+                    <h2>Vision</h2>
+                </div>
+                <div class="col-sm-12 col-md-4 m-2 attribute-box">
+                    <h2 class="attribute-value">@Model.Attribute.Positioning</h2>
+                    <h2>Positioning</h2>
+                </div>
+
+            </div>
+            <!-- Player attributes -->
+        }
+        else
+        {
+            <h3>Not yet set skills for @Model.FullName</h3>
+            <a asp-controller="Players" asp-action="Edit" asp-route-id="@Model.Id">Update skills</a>
+        }
     </div>
 </div>
 
+<!--TRANSFERS-->
 <div class="card mt-2 mb-2">
     <div class="card-header d-flex justify-content-between align-items-center bg-light" id="transfers-header">
         <h3>Transfer history</h3>
@@ -134,18 +234,18 @@
 
     <div class="card-body" id="transfers-body" style="display: none;">
         <!-- Player transfer history -->
- 
+
         @if (Model.Transfers.Any())
-        {  
+        {
             <section class="py-5">
                 <ul class="timeline-with-icons">
-                    @foreach(var transfer in Model.Transfers.OrderByDescending(t=>t.History).ToList())
-                    {  
+                    @foreach (var transfer in Model.Transfers.OrderByDescending(t => t.History).ToList())
+                    {
                         <li class="timeline-item mb-5">
                             <span class="timeline-icon">
                                 <img class="w-100 rounded" src="~/uploads/teams/logos/@transfer.Team.LogoPath" alt="team' logo"/>
                             </span>
- 
+
                             <h5 class="fw-bold">@transfer.Team.Name</h5>
                             <p class="text-muted mb-2 fw-bold">@transfer.History.ToShortDateString()</p>
                             <p class="text-muted">
@@ -153,14 +253,15 @@
                             </p>
                         </li>
 
-                        <hr />
+                        <hr/>
                     }
                 </ul>
             </section>
         }
         else
         {
-            <h1>No transfers found.</h1>
+            <h3>No transfers found.</h3>
+            <a asp-controller="Transfers" asp-action="Index">Transfer @Model.FullName</a>
         }
 
         <!-- Player transfer history -->
@@ -189,11 +290,6 @@
                         att.css("color","green"); 
 
               $(this).addClass("attribute-box-green");
-              }
-      else if (att.text() >= 50)
-          {
-                       att.css("color","yellow"); 
-$(this).addClass("attribute-box-yellow");
               }
       else if (att.text() >= 35)
           {

@@ -1,5 +1,8 @@
 ﻿using FutsalManager.Services.PlayerService;
+using FutsalManager.Services.PositionService;
+using FutsalManager.Services.TeamService;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using X.PagedList;
 
 namespace FutsalManager.Controllers
@@ -8,22 +11,31 @@ namespace FutsalManager.Controllers
     {
         private readonly DataContext _context;
         private readonly IPlayerService _playerService;
+        private readonly IPositionService _positionService;
+        private readonly ITeamService _teamService;
 
-        public PlayersController(DataContext context, IPlayerService playerService)
+        public PlayersController(DataContext context, IPlayerService playerService, IPositionService positionService, ITeamService teamService)
         {
             _context = context;
             _playerService = playerService;
+            _positionService = positionService;
+            _teamService = teamService;
         }
 
         // GET: Players
-        public async Task<IActionResult> Index(int? page)
+        public async Task<IActionResult> Index(bool? operationExecutedSuccessfully)
         {
             var players = await _playerService.GetPlayersAsync();
 
-            var pageNumber = page ?? 1;
+            // var pageNumber = page ?? 1;
+            //
+            // ViewBag.PagedPlayersList = players.ToPagedList(pageNumber, 10);
 
-            ViewBag.PagedPlayersList = players.ToPagedList(pageNumber, 10);
-
+            if (operationExecutedSuccessfully != null)
+                ViewBag.ErrorMessage = (operationExecutedSuccessfully == false
+                    ? "The operation you requested didn't executed successfully."
+                    : string.Empty);
+            
             return View(players);
         }
 
@@ -34,13 +46,19 @@ namespace FutsalManager.Controllers
 
             if (player == null)
                 return RedirectToAction(nameof(Index));
-
+            
             return View(player);
         }
 
         // GET: Players/Create
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            var positions = await _positionService.GetPositionsAsync();
+            var teams = await _teamService.GetTeamsAsync();
+            
+            ViewBag.Positions = positions;
+            ViewBag.Teams = teams;
+            
             return View();
         }
 
@@ -49,9 +67,12 @@ namespace FutsalManager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Birthday,Age,Nationality")] Player player)
+        public async Task<IActionResult> Create(Player player)
         {
-            if (!ModelState.IsValid || !PlayerFunctions.ValidateNationality(player.Nationality)) return View(player);
+            if (!ModelState.IsValid || !PlayerFunctions.ValidateNationality(player.Nationality))
+                return View(player);
+
+            player.IsActive = true;
             
             await _playerService.CreatePlayerAsync(player);
             return RedirectToAction(nameof(Index));
@@ -65,6 +86,10 @@ namespace FutsalManager.Controllers
             if (player == null)
                 return RedirectToAction(nameof(Index));
 
+            var positions = await _positionService.GetPositionsAsync();
+
+            ViewBag.Positions = positions;
+
             return View(player);
         }
 
@@ -73,8 +98,7 @@ namespace FutsalManager.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id,
-            [Bind("Id,FirstName,LastName,Birthday,Age,IsActive,AttributeId,TeamId,PositionId")] Player player)
+        public async Task<IActionResult> Edit(int id, Player player)
         {
             if (id != player.Id)
             {
@@ -86,14 +110,12 @@ namespace FutsalManager.Controllers
             if (ModelState.IsValid)
             {
                 success = await _playerService.UpdatePlayerAsync(player);
-
-                return RedirectToAction(nameof(Index));
             }
 
-            if (success)
-                return RedirectToAction(nameof(Index));
-            else
-                return View(player);
+            if (!success) return RedirectToAction(nameof(Edit), player.Id);
+            
+            return RedirectToAction(nameof(Index));
+
         }
 
         // GET: Players/Delete/5
@@ -107,15 +129,29 @@ namespace FutsalManager.Controllers
             return View(player);
         }
 
+        // POST: Players/SetActivity?id=5&activity=true
+        public async Task<IActionResult> SetActivity(int? id, bool activity)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            bool? success = await _playerService.SetActivityAsync(id, activity);
+
+            return RedirectToAction(nameof(Index), success);
+        }
+
         // POST: Players/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var success = await _playerService.DeletePlayerAsync(id);
-            if (success)
-                return RedirectToAction(nameof(Index));
-            return RedirectToAction(nameof(Delete), id);
+            
+            if (!success) return RedirectToAction(nameof(Delete), id);
+            
+            return RedirectToAction(nameof(Index));
         }
 
         #region PARTIALS
@@ -128,7 +164,7 @@ namespace FutsalManager.Controllers
             var pageNumber = page ?? 1;
 
             var pagedPlayers = await players.ToPagedListAsync(pageNumber, 10);
-            
+
             return PartialView("_PlayersList", pagedPlayers);
         }
 

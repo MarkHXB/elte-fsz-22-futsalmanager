@@ -579,3 +579,6 @@ C:\Users\bakon\Desktop\ELTE\WEB3 - C#\futsalmanager-mvc\FutsalManager\bin\Debug\
 C:\Users\bakon\Desktop\ELTE\WEB3 - C#\futsalmanager-mvc\FutsalManager\bin\Debug\net6.0\refs\WindowsBase.dll
 C:\Users\bakon\Desktop\ELTE\WEB3 - C#\futsalmanager-mvc\FutsalManager\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.Razor.Extensions.dll
 C:\Users\bakon\Desktop\ELTE\WEB3 - C#\futsalmanager-mvc\FutsalManager\bin\Debug\net6.0\Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation.dll
+C:\Users\bakon\Desktop\ELTE\WEB3 - C#\futsalmanager-mvc\FutsalManager\bin\Debug\net6.0\FutsalManager.Commons\obj\FutsalManager.Commons.csproj.nuget.dgspec.json
+C:\Users\bakon\Desktop\ELTE\WEB3 - C#\futsalmanager-mvc\FutsalManager\bin\Debug\net6.0\FutsalManager.Commons\obj\project.assets.json
+C:\Users\bakon\Desktop\ELTE\WEB3 - C#\futsalmanager-mvc\FutsalManager\bin\Debug\net6.0\FutsalManager.Commons\obj\project.packagespec.json

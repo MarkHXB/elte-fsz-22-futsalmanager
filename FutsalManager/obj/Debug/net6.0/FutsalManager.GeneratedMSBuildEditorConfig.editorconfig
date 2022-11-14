@@ -19,10 +19,6 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxFcnJvci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/bakon/Desktop/ELTE/WEB3 - C\#/futsalmanager-mvc/FutsalManager/Views/Home/InactivePlayers.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmFjdGl2ZVBsYXllcnMuY3NodG1s
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/bakon/Desktop/ELTE/WEB3 - C\#/futsalmanager-mvc/FutsalManager/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -59,6 +55,26 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/bakon/Desktop/ELTE/WEB3 - C\#/futsalmanager-mvc/FutsalManager/Views/Shared/Partials/_FilterTablePartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFBhcnRpYWxzXF9GaWx0ZXJUYWJsZVBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/bakon/Desktop/ELTE/WEB3 - C\#/futsalmanager-mvc/FutsalManager/Views/Shared/Partials/_HistorySessionPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFBhcnRpYWxzXF9IaXN0b3J5U2Vzc2lvblBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/bakon/Desktop/ELTE/WEB3 - C\#/futsalmanager-mvc/FutsalManager/Views/Shared/Partials/_PlayerCardPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFBhcnRpYWxzXF9QbGF5ZXJDYXJkUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/bakon/Desktop/ELTE/WEB3 - C\#/futsalmanager-mvc/FutsalManager/Views/Shared/Partials/_PlayerCellPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFBhcnRpYWxzXF9QbGF5ZXJDZWxsUGFydGlhbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/bakon/Desktop/ELTE/WEB3 - C\#/futsalmanager-mvc/FutsalManager/Views/Shared/Partials/_TeamCardPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXFBhcnRpYWxzXF9UZWFtQ2FyZFBhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/bakon/Desktop/ELTE/WEB3 - C\#/futsalmanager-mvc/FutsalManager/Views/Shared/_FilterTable.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9GaWx0ZXJUYWJsZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -87,10 +103,6 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVhbXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/bakon/Desktop/ELTE/WEB3 - C\#/futsalmanager-mvc/FutsalManager/Views/Teams/_TeamsList.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGVhbXNcX1RlYW1zTGlzdC5jc2h0bWw=
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/bakon/Desktop/ELTE/WEB3 - C\#/futsalmanager-mvc/FutsalManager/Views/Transfers/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbnNmZXJzXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
@@ -107,8 +119,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbnNmZXJzXEVkaXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/bakon/Desktop/ELTE/WEB3 - C\#/futsalmanager-mvc/FutsalManager/Views/Transfers/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbnNmZXJzXEluZGV4LmNzaHRtbA==
+[C:/Users/bakon/Desktop/ELTE/WEB3 - C\#/futsalmanager-mvc/FutsalManager/Views/Transfers/PlayersIndex.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbnNmZXJzXFBsYXllcnNJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/bakon/Desktop/ELTE/WEB3 - C\#/futsalmanager-mvc/FutsalManager/Views/Transfers/TeamsIndex.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVHJhbnNmZXJzXFRlYW1zSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/bakon/Desktop/ELTE/WEB3 - C\#/futsalmanager-mvc/FutsalManager/Views/_ViewImports.cshtml]

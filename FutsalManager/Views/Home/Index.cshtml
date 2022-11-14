@@ -1,3 +1,52 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+
+<form asp-action="Index" method="get" class="m-3">
+    <label for="searchbar" class="form-label">
+        <h3>Type Player or Team name for search:</h3>
+    </label>
+    <input type="text" name="Searchstring" class="form-control" id="searchbar" placeholder="Barcelona or Pelé...">
+    <input type="submit" class="btn btn-primary mt-2" value="Search"/>
+</form>
+
+<div class="row">
+
+    @if (ViewBag.Players != null)
+    {
+        <span class="d-flex justify-content-end m-2">Found players: @ViewBag.Players.Count</span>
+        @foreach (var player in ViewBag.Players)
+        {
+            <div class="col col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                @await Html.PartialAsync("Partials/_PlayerCardPartial",
+                    player,
+                    new ViewDataDictionary(ViewData)
+                    {
+                        { "viewmodel", "search" },
+                    })
+
+            </div>
+        }
+    }
+</div>
+
+<hr class="mt-4">
+
+<div class="row">
+    @if (ViewBag.Teams != null)
+    {<i class="bi bi-airplane-engines-fill"></i>
+        <span class="d-flex justify-content-end m-2">Found teams: @ViewBag.Teams.Count</span>
+        @foreach (var team in ViewBag.Teams)
+        {
+            <div class="col col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                @await Html.PartialAsync("Partials/_TeamCardPartial",
+                    team,
+                    new ViewDataDictionary(ViewData)
+                    {
+                        { "viewmodel", "search" },
+                    })
+
+            </div>
+        }
+    }
+</div>

@@ -4,114 +4,190 @@
     ViewData["Title"] = "Details";
 }
 
-<div>
-    <!-- INFORMATIONS ABOUT TEAM -->
-    <div class="row border border-dark rounded-1 m-2 p-1">
-        <i class="text-muted">
-            <h4>Details</h4>
-        </i>
-        <div class="col-sm-12 col-md-4 text-center">
-            <img src="@("~/uploads/teams/logos/" + Model.LogoPath)" asp-append-version="true" class="w-75 rounded" alt="team's logo">
-            <h6 class="mt-3 mb-3">Team Rating: @TeamFunctions.GetOverallRating(Model)</h6>
-        </div>
-        <div class="col-sm-12 col-md-8 text-center">
-            <h4>
-                @Html.DisplayFor(model => model.Name)
-            </h4>
-            <hr class="w-75"/>
-            <div class="row">
-                <div class="col rounded-3 d-flex justify-content-center flex-column align-items-center m-3 p-1"
-                     style="background-color: rgba(0,123,255,.7);color: white">
-                    <strong>
-                        @Html.DisplayNameFor(model => model.City)
-                    </strong>
+<style>
 
-                    <hr class="w-50" style="color:rgba(0,0,0,0.5)"/>
-                    @Html.DisplayFor(model => model.City)
-                </div>
-                <div class="col rounded-3 d-flex justify-content-center flex-column align-items-center m-3 p-1"
-                     style="background-color: rgba(0,123,255,.7);color: white">
-                    <strong>
-                        @Html.DisplayNameFor(model => model.Email)
+.hidden{
+    display: none;
+}
+.action-icon{
+margin-left:20px;
+margin-right: 20px;
+font-size: 2rem; 
+}
 
-                    </strong>
-                    <hr class="w-50" style="color:rgba(0,0,0,0.5)"/>
-                    @Html.DisplayFor(model => model.Email)
-                </div>
-                <div class="col rounded-3 d-flex justify-content-center flex-column align-items-center m-3 p-1"
-                     style="background-color: rgba(0,123,255,.7);color: white">
-                    <strong>
-                        @Html.DisplayNameFor(model => model.PhoneNumber)
-                    </strong>
-                    <hr class="w-50" style="color:rgba(0,0,0,0.5)"/>
-                    @Html.DisplayFor(model => model.PhoneNumber)
-                </div>
-            </div>
+</style>
+<div class="container d-flex justify-content-end align-items-center m-3">
+    <a class="action-icon" asp-controller="Teams" asp-action="Edit" asp-route-id="@Model.Id">
+        <i class="bi bi-pencil-square" style="color: blue;"></i>
+    </a>
+    <a class="action-icon" asp-controller="Transfers" asp-action="Index" asp-route-playerid="@Model.Id">
+        <i class="bi bi-binoculars" style="color:green"></i>
+    </a>
+    <a class="action-icon" asp-controller="Teams" asp-action="Delete" asp-route-id="@Model.Id">
+        <i class="bi bi-person-dash" style="color: red;"></i>
+    </a>
+</div>
+
+<!--DETAILS-->
+<div class="card mt-2 mb-2">
+    <div class="card-header d-flex justify-content-between align-items-center bg-light" id="details-header">
+        <h3>Details</h3>
+        <div id="arrow-container">
+            <i class="hidden bi bi-arrow-up" style="font-size: 1.5rem"></i>
+            <i class="bi bi-arrow-down" style="font-size: 1.5rem"></i>
         </div>
     </div>
+    <div class="card-body" id="details-body" style="display: block">
+        <!-- Team information -->
+        <a class="action-icon d-flex justify-content-end" asp-controller="Players" asp-action="Edit" asp-route-id="@Model.Id">
+            <i class="bi bi-pencil-square" style="color: blue;"></i>
+        </a>
+        <div class="row text-center">
+            @if (!string.IsNullOrEmpty(Model.LogoPath))
+            {
+                <div class="col col-sm-12 col-md-12 col-lg-6 p-2 d-flex flex-column justify-content-center align-items-center">
+                    <h6>Current team</h6>
+                        <img src="@("~/uploads/teams/logos/" + Model.LogoPath)" asp-append-version="true" class="w-75 rounded">
+                        <h3 class="mt-2 mb-2">@Model.Name</h3>
+                </div>
+            }
+            
+            <div class="col col-sm-12 col-md-12 col-lg-6 p-2 ">
+                <h6>Details about team</h6>
 
-    <!-- TEAM'S PLAYRES -->
-    <div class="row border border-dark rounded-1 m-2 p-1">
-        <i class="text-muted">
-            <h4>Team's players</h4>
-        </i>
-        @if (Model.Players.Any())
-        {
-            <div class="row">
-                @foreach (var player in Model.Players)
-                {
-                    var nat = player.Nationality[..2].ToLower();
+                <hr class="w-50 mx-auto"/>
 
-                    <!-- PLAYER CARD -->
-                    <div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 card d-flex justify-content-center flex-column p-1 m-2" style="max-width: 300px;">
-                        <div class="row">
-                            <div class="col-12">
-                                <!-- PLAYER NAME -->
-                                <hr/>
-                                <div class="row text-center">
-                                    <div class="col-12">
-                                        <h4>@player.FullName</h4>
-                                    </div>
-                                </div>
-                                <hr/>
-                                <table class="table text-center">
-                                    <thead>
-                                    <tr>
-                                        <th>Rating</th>
-                                        <th>Position</th>
-                                        <th>Nationality</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>
-                                            @PlayerFunctions.GetOverallRating(player)
-                                        </td>
-                                        <td>
-                                            @player.Position?.Pos
-                                        </td>
-                                        <td>
-                                            <img
-                                                src="https://flagcdn.com/96x72/@(nat).png"
-                                                width="48"
-                                                height="32"
-                                                alt="@player.Nationality">
-                                        </td>
-                                    </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <a class="btn btn-warning" asp-controller="Players" asp-action="Details" asp-route-id="@player.Id">More information</a>
-                    </div>
-                }
+                <div id="name">
+                    <span class="badge bg-secondary p-2 mb-2">Team name</span>
+                    <h4>@Model.Name</h4>
+                </div>
+
+                <hr class="w-75 mx-auto"/>
+
+                <div id="city">
+                    <span class="badge bg-secondary p-2 mb-2">City of team</span>
+                    <h4>@Model.City</h4>
+                </div>
+
+                <hr class="w-75 mx-auto"/>
+
+                <div id="email">
+                    <span class="badge bg-secondary p-2 mb-2">Email</span>
+                    <h4>@Model.Email</h4>
+                </div>
+
+                <hr class="w-75 mx-auto"/>
+
+                <div id="phonenumber" class="text-center">
+                    <span class="badge bg-secondary p-2 mb-2">Phone number</span>
+                                        <h4>@Model.PhoneNumber</h4>
+                </div>
+
+                <hr class="w-75 mx-auto"/>
+
             </div>
-        }
-        @if (Model.Players.Count <= 5)
-        {
-            <a asp-controller="Transfers" asp-action="Index">Transfer players</a>
-        }
+        </div>
+        <!-- Player information -->
     </div>
 </div>
 
-<a asp-action="Edit" asp-route-id="@Model.Id">Edit</a>
+@if (Model.Players != null)
+{
+    <!--TEAM PLAYERS-->
+    <div class="card mt-2 mb-2">
+        <div class="card-header d-flex justify-content-between align-items-center bg-light" id="teamplayers-header">
+            <h3>Team's players</h3>
+            <div id="arrow-container">
+                <i class="hidden bi bi-arrow-up" style="font-size: 1.5rem"></i>
+                <i class="bi bi-arrow-down" style="font-size: 1.5rem"></i>
+            </div>
+        </div>
+        <div class="card-body" id="teamplayers-body" style="display: block">
+            <!-- Players -->
+            @if (Model.Players.Any())
+            {
+                <div class="row text-center">
+                    @foreach (var player in Model.Players)
+                    {
+                        @if (player.Id == Model.Id)
+                        {
+                            <div class="col col-sm-12 col-md-6 col-lg-4 col-xl-3" style="pointer-events:none;opacity:0.6">
+                                <partial name="Partials/_PlayerCardPartial" model="@player"/>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col col-sm-12 col-md-6 col-lg-4 col-xl-3">
+                                <partial name="Partials/_PlayerCardPartial" model="@player"/>
+                            </div>
+                        }
+                    }
+
+                </div>
+            }
+            else
+            {
+                <h3>Team is empty!</h3>
+            }
+
+        </div>
+    </div>
+}
+
+<!--TRANSFERS-->
+<div class="card mt-2 mb-2">
+    <div class="card-header d-flex justify-content-between align-items-center bg-light" id="transfers-header">
+        <h3>Transfer history</h3>
+        <div id="arrow-container">
+            <i class="hidden bi bi-arrow-up"></i>
+            <i class="bi bi-arrow-down"></i>
+        </div>
+    </div>
+
+    <div class="card-body" id="transfers-body" style="display: none;">
+        <!-- Player transfer history -->
+
+        @if (Model.Transfers.Any())
+        {
+            <section class="py-5">
+                <ul class="timeline-with-icons">
+                    @foreach (var transfer in Model.Transfers.OrderByDescending(t => t.History).ToList())
+                    {
+                        <li class="timeline-item mb-5">
+                            <span class="timeline-icon">
+                                <img class="w-100 rounded" src="~/uploads/teams/logos/@transfer.Team.LogoPath" alt="team' logo"/>
+                            </span>
+
+                            <h5 class="fw-bold">@transfer.Team.Name</h5>
+                            <p class="text-muted mb-2 fw-bold">@transfer.History.ToShortDateString()</p>
+                            <p class="text-muted">
+                                asdőpsődpsld
+                            </p>
+                        </li>
+
+                        <hr/>
+                    }
+                </ul>
+            </section>
+        }
+        else
+        {
+            <h3>No transfers found.</h3>
+            <a asp-controller="Transfers" asp-action="Index">Add new transfer</a>
+        }
+
+        <!-- Player transfer history -->
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+    $(".card").find(".card-header").click(function() {
+        let $arrows = $(this).find("i");
+        $(this).parent().find(".card-body").slideToggle(function (){
+            $arrows.toggle();
+            });
+    });
+   </script>
+}

@@ -15,9 +15,11 @@ namespace FutsalManager.Controllers
         #region CONTROLLERS
 
          // GET: Teams
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var teams = await _teamService.GetTeamsAsync();
+
+            return View(teams);
         }
 
         public IActionResult Search()
@@ -111,38 +113,6 @@ namespace FutsalManager.Controllers
             return RedirectToAction(nameof(Delete), id);
         }
 
-        #endregion
-
-        #region PARTIALS
-        public async Task<IActionResult> TeamsListPartial()
-        {
-            var teams = await _teamService.GetTeamsAsync();
-
-            return PartialView("_TeamsList", teams);
-        }
-
-        public IActionResult FilterTablePartial()
-        {
-            var model = new FilterViewModel()
-            {
-                FilterOptions = new List<string>
-                {
-                    "Name",
-                    "City"
-                },
-                FilterTitles = new List<string>()
-                {
-                    "Featured",
-                    "Most popular",
-                    "Quality"
-                },
-                FilterModelType = typeof(Team),
-                ShowDetailedFilter = true
-            };
-            return PartialView("_FilterTable", model);
-        }
-        
-       
         #endregion
     }
 }

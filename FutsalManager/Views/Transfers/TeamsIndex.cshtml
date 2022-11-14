@@ -1,0 +1,21 @@
+﻿@model IEnumerable<Team>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+@foreach (var team in Model)
+{
+    <div class="col col-sm-12 col-md-6 col-lg-4 col-xl-3">
+        @await Html.PartialAsync("Partials/_TeamCardPartial",
+            team,
+            new ViewDataDictionary(ViewData)
+            {
+                { "viewmodel", "transfer" },
+                {"choosedplayerid", ViewBag.PlayerId}
+            })
+
+    </div>
+}

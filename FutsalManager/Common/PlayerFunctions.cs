@@ -1,11 +1,12 @@
-﻿using Attribute = FutsalManager.Models.Attribute;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using Attribute = FutsalManager.Models.Attribute;
 
 namespace FutsalManager.Common;
 
 public static class PlayerFunctions
 {
 
-    private static readonly List<string> AvailableNationalities = new()
+    public static readonly List<string> AvailableNationalities = new()
     {
         "Afghan",
 "Albanian",
@@ -205,6 +206,16 @@ public static class PlayerFunctions
 
     public static bool ValidateNationality(string nat) =>
         !string.IsNullOrWhiteSpace(nat) && AvailableNationalities.Find(n => n == nat) != null;
+
+    public static List<SelectListItem> GetNationalitiesSelectList()
+    {
+        return AvailableNationalities.Select(nat => new SelectListItem { Value = nat, Text = nat }).ToList();
+    }
+    
+    public static SelectList GetPositionSelectList(List<Position> positions)
+    {
+        return new SelectList(positions, "Pos", "Pos");
+    }
 
     public static int GetOverallRating(Player? player)
     {

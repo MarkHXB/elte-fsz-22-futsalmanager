@@ -1,0 +1,206 @@
+﻿@model IEnumerable<History>
+
+<style>
+.card {    
+transition: 0.3s transform cubic-bezier(0.155, 1.105, 0.295, 1.12),
+      0.3s box-shadow,
+      0.3s -webkit-transform cubic-bezier(0.155, 1.105, 0.295, 1.12);
+    border: 0;
+    border-radius: 1rem;
+  }
+  .card-img,
+  .card-img-top {
+    border-top-left-radius: calc(1rem - 1px);
+    border-top-right-radius: calc(1rem - 1px);
+  }
+  .card h5 {
+    overflow: hidden;
+    height: 56px;
+    font-weight: 900;
+    font-size: 1rem;
+  }
+  .card-img-top {
+    width: 100%;
+    max-height: 180px;
+    object-fit: contain;
+    padding: 30px;
+  }
+  .card h2 {
+    font-size: 1rem;
+  }
+  .card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.12), 0 4px 8px rgba(0, 0, 0, 0.06);
+  }
+</style>
+
+<div class="row row-cols-1 row-cols-xs-2 row-cols-sm-2 row-cols-lg-4 g-3 m-3">
+    @foreach (var item in Model)
+    {
+        @if (item.ModelType.ToLower().Contains("player"))
+        {
+            <div class="col">
+                <div class="card h-100 shadow" style="max-width: 20rem;">
+                    <img src="~/img/soccer.png" class="card-img-top" alt="soccer figure">
+                    <div class="card-body text-center">
+                        <div class="clearfix mb-3">
+                            @if (item.ActionName.ToLower().Contains("create"))
+                            {
+                                <span class="float-start badge rounded-pill bg-success">
+                                    @item.ActionName
+                                </span>
+                            }
+                            else if (item.ActionName.ToLower().Contains("edit"))
+                            {
+                                <span class="float-start badge rounded-pill bg-primary">
+                                    @item.ActionName
+                                </span>
+                            }
+                            else if (item.ActionName.ToLower().Contains("delete"))
+                            {
+                                <span class="float-start badge rounded-pill bg-danger">
+                                    @item.ActionName
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="float-start badge rounded-pill bg-warning">
+                                    @item.ActionName
+                                </span>
+                            }
+                            <span class="float-end text-muted">@item.DateWhenHappened.ToString("yyyy.M.d. hh:mm")</span>
+                        </div>
+                        <h5 class="card-title">
+                            @item.ModelIdentifier was
+                            @switch (item.ActionName.ToLower())
+                            {
+                                case "details":
+                                    <span>watched.</span>
+                                    break;
+                                case "edit":
+                                    <span>edited.</span>
+                                    break;
+                                case "delete":
+                                    <span>deleted.</span>
+                                    break;
+                            }
+                        </h5>
+                        <div class="text-center my-4">
+                            <a href="@item.ActionUrl" class="btn btn-primary">Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else if (item.ModelType.ToLower().Contains("team"))
+        {
+            <div class="col">
+                <div class="card h-100 shadow" style="max-width: 20rem;">
+                    <img src="@item.CustomImagePath" class="card-img-top" alt="team logo">
+                    <div class="card-body text-center">
+                        <div class="clearfix mb-3">
+                            @if (item.ActionName.ToLower().Contains("create"))
+                            {
+                                <span class="float-start badge rounded-pill bg-success">
+                                    @item.ActionName
+                                </span>
+                            }
+                            else if (item.ActionName.ToLower().Contains("edit"))
+                            {
+                                <span class="float-start badge rounded-pill bg-primary">
+                                    @item.ActionName
+                                </span>
+                            }
+                            else if (item.ActionName.ToLower().Contains("delete"))
+                            {
+                                <span class="float-start badge rounded-pill bg-danger">
+                                    @item.ActionName
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="float-start badge rounded-pill bg-warning">
+                                    @item.ActionName
+                                </span>
+                            }
+                            <span class="float-end text-muted">@item.DateWhenHappened.ToString("yyyy.M.d. hh:mm")</span>
+                        </div>
+                        <h5 class="card-title">
+                            @item.ModelIdentifier was
+                            @switch (item.ActionName.ToLower())
+                            {
+                                case "details":
+                                    <span>watched.</span>
+                                    break;
+                                case "edit":
+                                    <span>edited.</span>
+                                    break;
+                                case "delete":
+                                    <span>deleted.</span>
+                                    break;
+                            }
+                        </h5>
+                        <div class="text-center my-4">
+                            <a href="@item.ActionUrl" class="btn btn-primary">Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="col">
+                <div class="card h-100 shadow" style="max-width: 20rem;">
+                    <img src="~/img/transaction.png" class="card-img-top" alt="team logo">
+                    <div class="card-body text-center">
+                        <div class="clearfix mb-3">
+                            @if (item.ActionName.ToLower().Contains("create"))
+                            {
+                                <span class="float-start badge rounded-pill bg-success">
+                                    @item.ActionName
+                                </span>
+                            }
+                            else if (item.ActionName.ToLower().Contains("edit"))
+                            {
+                                <span class="float-start badge rounded-pill bg-primary">
+                                    @item.ActionName
+                                </span>
+                            }
+                            else if (item.ActionName.ToLower().Contains("delete"))
+                            {
+                                <span class="float-start badge rounded-pill bg-danger">
+                                    @item.ActionName
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="float-start badge rounded-pill bg-warning">
+                                    @item.ActionName
+                                </span>
+                            }
+                            <span class="float-end text-muted">@item.DateWhenHappened.ToString("yyyy.M.d. hh:mm")</span>
+                        </div>
+                        <h5 class="card-title">
+                            @item.ModelIdentifier was
+                            @switch (item.ActionName.ToLower())
+                            {
+                                case "details":
+                                    <span>watched.</span>
+                                    break;
+                                case "edit":
+                                    <span>edited.</span>
+                                    break;
+                                case "delete":
+                                    <span>deleted.</span>
+                                    break;
+                            }
+                        </h5>
+                        <div class="text-center my-4">
+                            <a href="@item.ActionUrl" class="btn btn-primary">Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+</div>

@@ -1,0 +1,46 @@
+﻿@model Team
+
+@{
+    var mode = ViewData["viewmodel"] as string ?? string.Empty;
+   
+}
+
+<style>
+    #teamcounter{
+        font-size: 1.5em;
+    }
+</style>
+<i class="bi bi-airplane-engines-fill"></i>
+<div class="card text-center m-1" style="max-width: 18rem;">
+    <span class="d-flex justify-content-end align-items-center p-1">
+        <strong>Count of players: </strong>
+        <span class="badge bg-primary m-1">@Model.Players.Count</span>
+    </span>
+    <img src="@("~/uploads/teams/logos/" + Model.LogoPath)" asp-append-version="true" class="card-img-top">
+    <div class="card-body text-center">
+        <h5 class="card-title">@Model.Name</h5>
+        <h6 class="card-subtitle mb-2 text-muted">@Model.City</h6>
+
+        <div class="row">
+            <a class="col col-12 p-1 mt-1 btn btn-warning" asp-controller="Teams" asp-action="Details" asp-route-id="@Model.Id">View details</a>
+
+            @if (mode == "crud")
+            {
+                <a asp-controller="Teams" asp-action="Edit" asp-route-id="@Model.Id" class="col col-12 p-1 mt-1  btn btn-primary">Edit</a>
+                <a asp-controller="Teams" asp-action="Delete" asp-route-id="@Model.Id" class="col col-12 p-1 mt-1 btn btn-danger">Delete</a>
+            }
+            else if (mode == "search")
+            {
+            }
+            else if (mode == "transfer")
+            {
+                int? playerid = ViewData["choosedplayerid"] as int? ?? 0;
+                <form asp-controller="Transfers" asp-action="Transfer" method="post" class="col col-12 p-1 mt-1 btn btn-primary">
+                    <input hidden name="playerid" value="@playerid" />
+                    <input hidden name="teamid" value="@Model.Id" />
+                    <input type="submit" value="Choose team" class="btn btn-primary"/>
+                </form>
+            }
+        </div>
+    </div>
+</div>

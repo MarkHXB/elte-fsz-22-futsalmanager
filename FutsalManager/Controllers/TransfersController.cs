@@ -7,168 +7,63 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FutsalManager.Data;
 using FutsalManager.Models;
+using FutsalManager.Services.PlayerService;
+using FutsalManager.Services.TeamService;
+using FutsalManager.Services.TransferService;
+using X.PagedList;
 
 namespace FutsalManager.Controllers
 {
     public class TransfersController : Controller
     {
         private readonly DataContext _context;
+        private readonly IPlayerService _playerService;
+        private readonly ITeamService _teamService;
+        private readonly ITransferService _transferService;
 
-        public TransfersController(DataContext context)
+        public TransfersController(DataContext context, IPlayerService playerService, ITeamService teamService, ITransferService transferService)
         {
             _context = context;
+            _playerService = playerService;
+            _teamService = teamService;
+            _transferService = transferService;
         }
 
         // GET: Transfers
-        public async Task<IActionResult> Index()
+        [Route("/Transfer")]
+        [Route("/Transfers")]
+        public async Task<IActionResult> PlayersIndex()
         {
-            var dataContext = _context.Transfers.Include(t => t.Player).Include(t => t.Team);
-            return View(await dataContext.ToListAsync());
+            var players = await _playerService.GetPlayersAsync();
+            return View(players);
         }
-
-        // GET: Transfers/Details/5
-        public async Task<IActionResult> Details(int? id)
+        
+        public async Task<IActionResult> TeamsIndex(int? playerid)
         {
-            if (id == null || _context.Transfers == null)
-            {
-                return NotFound();
-            }
-
-            var transfer = await _context.Transfers
-                .Include(t => t.Player)
-                .Include(t => t.Team)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (transfer == null)
-            {
-                return NotFound();
-            }
-
-            return View(transfer);
-        }
-
-        // GET: Transfers/Create
-        public IActionResult Create()
-        {
-            ViewData["PlayerId"] = new SelectList(_context.Players, "Id", "Id");
-            ViewData["TeamId"] = new SelectList(_context.Teams, "Id", "Id");
-            return View();
-        }
-
-        // POST: Transfers/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,PlayerId,TeamId,History")] Transfer transfer)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(transfer);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["PlayerId"] = new SelectList(_context.Players, "Id", "Id", transfer.PlayerId);
-            ViewData["TeamId"] = new SelectList(_context.Teams, "Id", "Id", transfer.TeamId);
-            return View(transfer);
-        }
-
-        // GET: Transfers/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || _context.Transfers == null)
-            {
-                return NotFound();
-            }
-
-            var transfer = await _context.Transfers.FindAsync(id);
-            if (transfer == null)
-            {
-                return NotFound();
-            }
-            ViewData["PlayerId"] = new SelectList(_context.Players, "Id", "Id", transfer.PlayerId);
-            ViewData["TeamId"] = new SelectList(_context.Teams, "Id", "Id", transfer.TeamId);
-            return View(transfer);
-        }
-
-        // POST: Transfers/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,PlayerId,TeamId,History")] Transfer transfer)
-        {
-            if (id != transfer.Id)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(transfer);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!TransferExists(transfer.Id))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["PlayerId"] = new SelectList(_context.Players, "Id", "Id", transfer.PlayerId);
-            ViewData["TeamId"] = new SelectList(_context.Teams, "Id", "Id", transfer.TeamId);
-            return View(transfer);
-        }
-
-        // GET: Transfers/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null || _context.Transfers == null)
-            {
-                return NotFound();
-            }
-
-            var transfer = await _context.Transfers
-                .Include(t => t.Player)
-                .Include(t => t.Team)
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (transfer == null)
-            {
-                return NotFound();
-            }
-
-            return View(transfer);
-        }
-
-        // POST: Transfers/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            if (_context.Transfers == null)
-            {
-                return Problem("Entity set 'DataContext.Transfers'  is null.");
-            }
-            var transfer = await _context.Transfers.FindAsync(id);
-            if (transfer != null)
-            {
-                _context.Transfers.Remove(transfer);
-            }
+            if (playerid == null) return RedirectToAction(nameof(PlayersIndex));
             
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+            var teams = await _teamService.GetTeamsAsync();
 
-        private bool TransferExists(int id)
+            var freeTeams = await teams.Where(t => t.Players.Count <= 5).ToListAsync();
+
+            ViewBag.PlayerId = playerid;
+            
+            return View(freeTeams);
+        }
+        
+        [HttpPost]
+        public async Task<IActionResult> Transfer(int? playerid, int? teamid)
         {
-          return _context.Transfers.Any(e => e.Id == id);
+            if (playerid == null || teamid == null) return RedirectToAction(nameof(TeamsIndex), playerid);
+
+            var player = await _playerService.GetPlayerAsync(playerid);
+            var team = await _teamService.GetTeamAsync(teamid);
+
+            bool result = await _transferService.CreateTransferAsync(player, team);
+
+            if (result) // itt majd a transfer detail-éhez
+                return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(TeamsIndex), playerid);
         }
     }
 }

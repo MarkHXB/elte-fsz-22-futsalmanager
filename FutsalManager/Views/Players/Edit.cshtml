@@ -1,63 +1,138 @@
 ﻿@model Player
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Create";
 }
 
-<h1>Edit</h1>
+<h1>Create</h1>
 
-<h4>Player</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Edit">
+<h4>Create a new player</h4>
+<hr/>
+<div class="container d-flex flex-column justify-content-center">
+    <form asp-action="Edit">
+        <div id="personal-information">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="Id" />
+                <input type="hidden" asp-for="Id"/>
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
-                <input asp-for="FirstName" class="form-control" />
+                <input asp-for="FirstName" class="form-control"/>
                 <span asp-validation-for="FirstName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="LastName" class="control-label"></label>
-                <input asp-for="LastName" class="form-control" />
+                <input asp-for="LastName" class="form-control"/>
                 <span asp-validation-for="LastName" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Birthday" class="control-label"></label>
-                <input asp-for="Birthday" class="form-control" />
+                <input id="birthday-value" type="date" asp-for="Birthday" class="form-control" min="1900-01-01" max="2050-12-31"/>
                 <span asp-validation-for="Birthday" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Age" class="control-label"></label>
-                <input asp-for="Age" class="form-control" />
+                <input id="age-value" asp-for="Age" class="form-control"/>
                 <span asp-validation-for="Age" class="text-danger"></span>
             </div>
-            <div class="form-group form-check">
-                <label class="form-check-label">
-                    <input class="form-check-input" asp-for="IsActive" /> @Html.DisplayNameFor(model => model.IsActive)
-                </label>
-            </div>
-            <div class="form-group d-none">
-                <label asp-for="AttributeId" class="control-label"></label>
-                <select asp-for="AttributeId" class="form-control" asp-items="ViewBag.AttributeId"></select>
-                <span asp-validation-for="AttributeId" class="text-danger"></span>
-            </div>
-            <div class="form-group d-none">
-                <label asp-for="TeamId" class="control-label"></label>
-                <select asp-for="TeamId" class="form-control" asp-items="ViewBag.TeamId"></select>
-                <span asp-validation-for="TeamId" class="text-danger"></span>
-            </div>
-            <div class="form-group d-none">
-                <label asp-for="PositionId" class="control-label"></label>
-                <select asp-for="PositionId" class="form-control" asp-items="ViewBag.PositionId"></select>
-                <span asp-validation-for="PositionId" class="text-danger"></span>
-            </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <label asp-for="Nationality" class="control-label"></label>
+                <select asp-for="Nationality" asp-items="@PlayerFunctions.GetNationalitiesSelectList()" class="form-control">
+                    <option value="">-- select one --</option>
+                </select>
+                <span asp-validation-for="Nationality" class="text-danger"></span>
             </div>
-        </form>
-    </div>
+        </div>
+
+        <div class="form-group d-flex align-items-center justify-content-around">
+            <a class="btn btn-primary mt-2 mb-2" href="#attributecontainer">Next</a>
+            <input type="submit" value="Finish" class="btn btn-success"/>
+        </div>
+
+        <hr>
+
+        <div class="form-group range-group" id="attributecontainer">
+            <h4>
+                <label asp-for="Attribute.Dribbling" class="control-label attribute-title"></label>
+            </h4>
+            <input type="range" asp-for="Attribute.Dribbling" class="form-range" value="@(Model?.Attribute?.Dribbling ?? 50)" step="1" max="100" min="1"/>
+            <span asp-validation-for="Attribute.Dribbling" class="text-danger"></span>
+        </div>
+        <div class="form-group range-group">
+            <h4>
+                <label asp-for="Attribute.Passing" class="control-label attribute-title"></label>
+            </h4>
+            <input type="range" asp-for="Attribute.Passing" class="form-range" value="@(Model?.Attribute?.Passing ?? 50)" step="1" max="100" min="1"/>
+            <span asp-validation-for="Attribute.Passing" class="text-danger"></span>
+        </div>
+        <div class="form-group range-group">
+            <h4>
+                <label asp-for="Attribute.Juggling" class="control-label attribute-title"></label>
+            </h4>
+            <input type="range" asp-for="Attribute.Juggling" class="form-range" value="@(Model?.Attribute?.Juggling ?? 50)" step="1" max="100" min="1"/>
+            <span asp-validation-for="Attribute.Juggling" class="text-danger"></span>
+        </div>
+        <div class="form-group range-group">
+            <h4>
+                <label asp-for="Attribute.Shooting" class="control-label attribute-title"></label>
+            </h4>
+            <input type="range" asp-for="Attribute.Shooting" class="form-range" value="@(Model?.Attribute?.Shooting ?? 50)" step="1" max="100" min="1"/>
+            <span asp-validation-for="Attribute.Shooting" class="text-danger"></span>
+        </div>
+        <div class="form-group range-group">
+            <h4>
+                <label asp-for="Attribute.Tackling" class="control-label attribute-title"></label>
+            </h4>
+            <input type="range" asp-for="Attribute.Tackling" class="form-range" value="@(Model?.Attribute?.Tackling ?? 50)" step="1" max="100" min="1"/>
+            <span asp-validation-for="Attribute.Tackling" class="text-danger"></span>
+        </div>
+        <div class="form-group range-group">
+            <h4>
+                <label asp-for="Attribute.Reaction" class="control-label attribute-title"></label>
+            </h4>
+            <input type="range" asp-for="Attribute.Reaction" class="form-range" value="@(Model?.Attribute?.Reaction ?? 50)" step="1" max="100" min="1"/>
+            <span asp-validation-for="Attribute.Reaction" class="text-danger"></span>
+        </div>
+        <div class="form-group range-group">
+            <h4>
+                <label asp-for="Attribute.Vision" class="control-label attribute-title"></label>
+            </h4>
+            <input type="range" asp-for="Attribute.Vision" class="form-range" value="@(Model?.Attribute?.Vision ?? 50)" step="1" max="100" min="1"/>
+            <span asp-validation-for="Attribute.Vision" class="text-danger"></span>
+        </div>
+        <div class="form-group range-group">
+            <h4>
+                <label asp-for="Attribute.Positioning" class="control-label attribute-title"></label>
+            </h4>
+            <input type="range" asp-for="Attribute.Positioning" class="form-range" value="@(Model?.Attribute?.Positioning ?? 50)" step="1" max="100" min="1"/>
+            <span asp-validation-for="Attribute.Positioning" class="text-danger"></span>
+        </div>
+
+        <div class="form-group text-center">
+            <a class="btn btn-primary mt-2 mb-2" href="#positionscontainer" id="attributesclicker">Next</a>
+        </div>
+
+        <hr>
+
+        <div class="form-group" id="positionscontainer">
+            @if (ViewBag.Positions != null)
+            {
+                @foreach (var pos in ViewBag.Positions)
+                {
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" asp-for="PositionId" value="@pos.Id" id="@pos.Pos">
+                        <label class="form-check-label" asp-for="PositionId" for="@pos.Pos">
+                            <h5>@pos.Pos</h5>
+                        </label>
+                    </div>
+                }
+            }
+        </div>
+
+        <hr>
+
+        <div class="form-group text-center">
+            <input type="submit" value="Finish" class="btn btn-success"/>
+        </div>
+    </form>
 </div>
 
 <div>
@@ -65,5 +140,24 @@
 </div>
 
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+
+    <script>
+    $("#birthday-value").change(function (){
+           let date = new Date($('#birthday-value').val());
+           let year = date.getFullYear();
+           let cyear = new Date().getFullYear();
+           let age = cyear - year;
+           $("#age-value").val(age);
+        });
+    </script>
+    <script>
+    $(".range-group").each(function (){
+        let title = $(this).find(".attribute-title").text();
+                     
+        $(this).find(".form-range").change(function (){
+                $(this).parent().find(".attribute-title").text(title+" - "+$(this).val());
+            });
+        });    
+    </script>
 }

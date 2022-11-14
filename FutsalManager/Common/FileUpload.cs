@@ -24,7 +24,7 @@ namespace FutsalManager.Common
                 {
                     if (!team.Name.Contains(file)) continue;
                     
-                    var fileToDelete =Path.Combine(root,file);
+                    var fileToDelete = Path.Combine(root,file);
                     File.Delete(fileToDelete);
                 }
             }
