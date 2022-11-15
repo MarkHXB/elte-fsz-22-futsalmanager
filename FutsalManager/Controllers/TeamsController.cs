@@ -65,7 +65,7 @@ namespace FutsalManager.Controllers
 
             if (team == null)
                 return RedirectToAction(nameof(Index));
-            
+
             return View(team);
         }
 
@@ -80,8 +80,6 @@ namespace FutsalManager.Controllers
             }
 
             if (!ModelState.IsValid) return View(team);
-
-            FileUpload.UploadTeamLogo(team);
 
             var success = await _teamService.UpdateTeamAsync(team);
 
@@ -107,12 +105,24 @@ namespace FutsalManager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var success = await _teamService.DeleteTeamAsync(id);
-            if (success)
-                return RedirectToAction(nameof(Index));
-            return RedirectToAction(nameof(Delete), id);
+            bool success = await _teamService.DeleteTeamAsync(id);
+            
+            if (!success) return RedirectToAction(nameof(Delete), id);
+            
+            return RedirectToAction(nameof(Index));
         }
 
+        // GET: Teams/EditLogo/5
+        public async Task<IActionResult> EditLogo(int? id)
+        {
+            var team = await _teamService.GetTeamAsync(id);
+
+            if (team == null)
+                return RedirectToAction(nameof(Index));
+            
+            return RedirectToAction(nameof(Index));
+        }
+        
         #endregion
     }
 }

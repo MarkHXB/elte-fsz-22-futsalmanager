@@ -25,7 +25,7 @@ font-size: 2rem;
     <a class="action-icon" asp-controller="Players" asp-action="Edit" asp-route-id="@Model.Id">
         <i class="bi bi-pencil-square" style="color: blue;"></i>
     </a>
-    <a class="action-icon" asp-controller="Transfers" asp-action="Index" asp-route-playerid="@Model.Id">
+    <a class="action-icon" asp-controller="Transfers" asp-action="TeamsIndex" asp-route-playerid="@Model.Id">
         <i class="bi bi-binoculars" style="color:green"></i>
     </a>
     <a class="action-icon" asp-controller="Players" asp-action="Delete" asp-route-id="@Model.Id">
@@ -58,8 +58,15 @@ font-size: 2rem;
                 @if (Model.Team != null)
                 {
                     <h6>Current team</h6>
-                    <img src="@("~/uploads/teams/logos/" + Model?.Team?.LogoPath)" asp-append-version="true" class="w-50 rounded">
-                    <h3 class="mt-2 mb-2">@Model?.Team?.Name</h3>
+                    @if (!string.IsNullOrWhiteSpace(Model.Team.LogoPath))
+                    {
+                        <img src="@("~/uploads/teams/logos/" + Model.Team.LogoPath)" asp-append-version="true" class="w-50 rounded">              
+                    }
+                    else
+                    {
+                        <h4 class="text-muted">Team's logo would be here.</h4>
+                    }
+                    <h3 class="mt-2 mb-2">@Model.Team.Name</h3>
                 }
                 else
                 {
@@ -261,7 +268,7 @@ font-size: 2rem;
         else
         {
             <h3>No transfers found.</h3>
-            <a asp-controller="Transfers" asp-action="Index">Transfer @Model.FullName</a>
+            <a asp-controller="Transfers" asp-action="TeamsIndex" asp-route-playerid="@Model.Id">Transfer @Model.FullName</a>
         }
 
         <!-- Player transfer history -->

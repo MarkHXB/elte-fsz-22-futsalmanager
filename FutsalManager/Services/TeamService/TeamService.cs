@@ -47,9 +47,9 @@ namespace FutsalManager.Services.TeamService
         {
             var team = await GetTeamAsync(id);
 
-            if (team == null)
-                return false;
+            if (team == null) return false;
 
+            _context.Transfers.RemoveRange(team.Transfers);
             _context.Teams.Remove(team);
 
             return (await _context.SaveChangesAsync()) > 0;

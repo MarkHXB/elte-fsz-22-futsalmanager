@@ -1,9 +1,8 @@
 ﻿using FutsalManager.Services.PlayerService;
 using FutsalManager.Services.PositionService;
 using FutsalManager.Services.TeamService;
+using FutsalManager.Services.TransferService;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using X.PagedList;
 
 namespace FutsalManager.Controllers
 {
@@ -13,13 +12,19 @@ namespace FutsalManager.Controllers
         private readonly IPlayerService _playerService;
         private readonly IPositionService _positionService;
         private readonly ITeamService _teamService;
+        private readonly ITransferService _transferService;
 
-        public PlayersController(DataContext context, IPlayerService playerService, IPositionService positionService, ITeamService teamService)
+        public PlayersController(DataContext context,
+            IPlayerService playerService,
+            IPositionService positionService,
+            ITeamService teamService,
+            ITransferService transferService)
         {
             _context = context;
             _playerService = playerService;
             _positionService = positionService;
             _teamService = teamService;
+            _transferService = transferService;
         }
 
         // GET: Players
@@ -73,8 +78,13 @@ namespace FutsalManager.Controllers
                 return View(player);
 
             player.IsActive = true;
+
+            if (await _transferService.CreateTransferForNewbies(player) == false)
+            {
+                return RedirectToAction(nameof(Index));
+            }
             
-            await _playerService.CreatePlayerAsync(player);
+            //await _playerService.CreatePlayerAsync(player);
             return RedirectToAction(nameof(Index));
         }
 
@@ -153,21 +163,5 @@ namespace FutsalManager.Controllers
             
             return RedirectToAction(nameof(Index));
         }
-
-        #region PARTIALS
-
-        [HttpGet]
-        public async Task<IActionResult> PlayersListPartial(int? page)
-        {
-            var players = await _playerService.GetPlayersAsync();
-
-            var pageNumber = page ?? 1;
-
-            var pagedPlayers = await players.ToPagedListAsync(pageNumber, 10);
-
-            return PartialView("_PlayersList", pagedPlayers);
-        }
-
-        #endregion
     }
 }

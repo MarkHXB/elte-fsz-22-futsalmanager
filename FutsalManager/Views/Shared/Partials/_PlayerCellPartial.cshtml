@@ -8,7 +8,10 @@
 
 <tr class="shadow-sm box h-100">
     <td>
-        <img src="~/uploads/teams/logos/@Model?.Team?.LogoPath" alt="team's logo" style="max-width:5rem" class="rounded">
+        @{
+                var logoPathPart = string.IsNullOrEmpty(Model?.Team?.LogoPath) ? "default.png" : Model?.Team?.LogoPath;
+            }
+        <img src="~/uploads/teams/logos/@logoPathPart" alt="team's logo" style="max-width:5rem" class="rounded">
     </td>
     <td>
         <h4>@Html.DisplayFor(modelItem => Model!.FullName)</h4>

@@ -31,7 +31,10 @@ margin-left: 0.5em;
             <i class="bi bi-bookmark-dash-fill"></i>
         }
     </span>
-    <img src="@("~/uploads/teams/logos/" + Model?.Team?.LogoPath)" asp-append-version="true" class="card-img-top" alt="team's logo">
+    @{
+        var logoPathPart = string.IsNullOrEmpty(Model?.Team?.LogoPath) ? "default.png" : Model?.Team?.LogoPath;
+    }
+    <img src="@("~/uploads/teams/logos/" + logoPathPart)" asp-append-version="true" class="card-img-top" alt="team's logo">
     <div class="card-body">
         <h5 class="card-title text-center">@Model.FullName</h5>
         <table class="table text-center">

@@ -16,6 +16,29 @@ namespace FutsalManager.Services.TransferService
             return (await _context.SaveChangesAsync()) > 0;
         }
 
+        public async Task<bool> CreateTransferForNewbies(Player? player)
+        {
+            if (player == null) return false;
+
+            var team = _context.Teams.FirstOrDefault(t => t.Id == player.TeamId);
+            player.Team = team;
+
+            if (player?.Team == null) return false;
+            
+            _context.Players.Add(player);
+            
+            var transfer = new Transfer()
+            {
+                Player = player,
+                Team = player.Team,
+                History = DateTime.Now
+            };
+
+            SetActiveStatusPlayer(player);
+            
+            return (await SaveTransferAsync(transfer));
+        }
+        
         public async Task<bool> CreateTransferAsync(Player? player, Team? team)
         {
             if (player == null || team == null) return false;
@@ -24,6 +47,8 @@ namespace FutsalManager.Services.TransferService
 
             if (IsLastTransferWasSameTeam(player, team)) return false;
 
+            if (IsPlayerInAlreadyInSameTeam(player, team)) return false;
+            
             var transfer = new Transfer()
             {
                 Player = player,
@@ -31,10 +56,13 @@ namespace FutsalManager.Services.TransferService
                 History = DateTime.Now
             };
 
+            player.Team = team;
+            team.Players.Add(player);
+            
             SetActiveStatusPlayer(player);
-            SetPlayerTransaction(player, team);
-            SetTeamTransaction(team, player);
-
+            // SetPlayerTransaction(player, team,transfer);
+            // SetTeamTransaction(team, player, transfer);
+            
             return (await SaveTransferAsync(transfer));
         }
 
@@ -68,27 +96,23 @@ namespace FutsalManager.Services.TransferService
         {
             //lehet az adatbázisból kiszedve jobb
             if (!player.Transfers.Any()) return false;
-            if (player.Transfers.Last().Team.Name == team.Name) return false;
-            return true;
+            if (player.Transfers.Last().Team.Name == team.Name) return true;
+            return false;
         }
-
+        private bool IsPlayerInAlreadyInSameTeam(Player player, Team team)
+        {
+            var mTeam = _context.Teams.FirstOrDefault(t => t.Id == team.Id);
+            var mPlayer = _context.Players.FirstOrDefault(p => p.Id == player.Id);
+            if (mTeam == null || mPlayer == null) return false;
+            {
+                if (mTeam.Players.Any(p => p.Id == mPlayer.Id)) return true;
+            }
+            return false;
+        }
         private void SetActiveStatusPlayer(Player player)
         {
             var model = _context.Players.FirstOrDefault(p => p.Id == player.Id);
             if (model != null) model.IsActive = true; 
-        }
-        
-        private void SetPlayerTransaction(Player player, Team team)
-        {
-            var model = _context.Players.FirstOrDefault(p => p.Id == player.Id);
-            if (model != null)
-                model.Team = team;
-        }
-        
-        private void SetTeamTransaction(Team team,Player player)
-        {
-            var model = _context.Teams.FirstOrDefault(p => p.Id == team.Id);
-            model?.Players.Add(player);
         }
     }
 }

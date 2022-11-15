@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "t71R5FakZAgN1P6Zg49t7YORCR7MRyh3k1AI76ZST5g=",
+  "Hash": "uXxsVGgmjGTN+rY95RYiH9jWs6jqj45fj3zh3P7U0OY=",
   "Source": "FutsalManager",
   "BasePath": "_content/FutsalManager",
   "Mode": "Default",
@@ -3772,6 +3772,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\teams\\logos\\Barcelonaeaaa41b3-6694-47f6-962c-bd51fd79734f.png"
+    },
+    {
+      "Identity": "C:\\Users\\bakon\\Desktop\\ELTE\\WEB3 - C#\\futsalmanager-mvc\\FutsalManager\\wwwroot\\uploads\\teams\\logos\\Benficaa611fed0-ad6f-444d-b8bc-fee386643bdb.png",
+      "SourceId": "FutsalManager",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\bakon\\Desktop\\ELTE\\WEB3 - C#\\futsalmanager-mvc\\FutsalManager\\wwwroot\\",
+      "BasePath": "_content/FutsalManager",
+      "RelativePath": "uploads/teams/logos/Benficaa611fed0-ad6f-444d-b8bc-fee386643bdb.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\teams\\logos\\Benficaa611fed0-ad6f-444d-b8bc-fee386643bdb.png"
     },
     {
       "Identity": "C:\\Users\\bakon\\Desktop\\ELTE\\WEB3 - C#\\futsalmanager-mvc\\FutsalManager\\wwwroot\\uploads\\teams\\logos\\Boca Juniors03b9448f-51dd-4c32-a49b-ef445f6a27cf.png",

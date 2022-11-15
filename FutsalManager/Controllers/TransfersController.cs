@@ -30,6 +30,7 @@ namespace FutsalManager.Controllers
         }
 
         // GET: Transfers
+        [HttpGet]
         [Route("/Transfer")]
         [Route("/Transfers")]
         public async Task<IActionResult> PlayersIndex()

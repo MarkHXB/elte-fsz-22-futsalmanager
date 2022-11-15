@@ -29,6 +29,11 @@ namespace FutsalManager.Services.PlayerService
 
             var player = await _context.Players
                 .Include(t=>t.Team)
+                .ThenInclude(p=>p.Players)
+                .ThenInclude(a=>a.Attribute)
+                .Include(t=>t.Team)
+                .ThenInclude(p=>p.Players)
+                .ThenInclude(a=>a.Position)
                 .Include(a=>a.Attribute)
                 .Include(p=>p.Position)
                 .Include(t=>t.Transfers)
@@ -36,7 +41,6 @@ namespace FutsalManager.Services.PlayerService
                 .FirstOrDefaultAsync(t => t.Id == id);
 
             return player;
-
         }
         public async Task<bool> UpdatePlayerAsync(Player player)
         {
@@ -92,11 +96,13 @@ namespace FutsalManager.Services.PlayerService
             if (player == null)
                 return false;
 
+            _context.Transfers.RemoveRange(player.Transfers);
+            if (player.Attribute != null) _context.Attributes.Remove(player.Attribute);
+
             _context.Players.Remove(player);
 
             return (await _context.SaveChangesAsync()) > 0;
         }
-
         public async Task<bool> SetActivityAsync(int? id, bool activity)
         {
             if (id == null) return false;
@@ -109,7 +115,6 @@ namespace FutsalManager.Services.PlayerService
 
             return (await _context.SaveChangesAsync()) > 0;
         }
-
         public async Task<List<Player>> SearchPlayersAsync(string searchstring)
         {
             var result = new List<Player>();

@@ -17,11 +17,11 @@ font-size: 2rem;
 
 </style>
 <div class="container d-flex justify-content-end align-items-center m-3">
+    <a class="action-icon" asp-controller="Teams" asp-action="EditLogo" asp-route-id="@Model.Id">
+        <i class="bi bi-card-image" style="color: purple;"></i>
+    </a>
     <a class="action-icon" asp-controller="Teams" asp-action="Edit" asp-route-id="@Model.Id">
         <i class="bi bi-pencil-square" style="color: blue;"></i>
-    </a>
-    <a class="action-icon" asp-controller="Transfers" asp-action="Index" asp-route-playerid="@Model.Id">
-        <i class="bi bi-binoculars" style="color:green"></i>
     </a>
     <a class="action-icon" asp-controller="Teams" asp-action="Delete" asp-route-id="@Model.Id">
         <i class="bi bi-person-dash" style="color: red;"></i>
@@ -43,15 +43,20 @@ font-size: 2rem;
             <i class="bi bi-pencil-square" style="color: blue;"></i>
         </a>
         <div class="row text-center">
-            @if (!string.IsNullOrEmpty(Model.LogoPath))
-            {
-                <div class="col col-sm-12 col-md-12 col-lg-6 p-2 d-flex flex-column justify-content-center align-items-center">
-                    <h6>Current team</h6>
-                        <img src="@("~/uploads/teams/logos/" + Model.LogoPath)" asp-append-version="true" class="w-75 rounded">
-                        <h3 class="mt-2 mb-2">@Model.Name</h3>
-                </div>
-            }
-            
+            <div class="col col-sm-12 col-md-12 col-lg-6 p-2 d-flex flex-column justify-content-center align-items-center">
+                <h5>Team</h5>
+                @if (!string.IsNullOrWhiteSpace(Model.LogoPath))
+                {
+                    <img src="@("~/uploads/teams/logos/" + Model.LogoPath)" asp-append-version="true" class="w-50 rounded">
+                }
+                else
+                {
+                    <h4 class="text-muted">Team's logo would be here.</h4>
+                }
+                <h3 class="mt-2 mb-2">@Model.Name</h3>
+            </div>
+
+
             <div class="col col-sm-12 col-md-12 col-lg-6 p-2 ">
                 <h6>Details about team</h6>
 
@@ -80,7 +85,7 @@ font-size: 2rem;
 
                 <div id="phonenumber" class="text-center">
                     <span class="badge bg-secondary p-2 mb-2">Phone number</span>
-                                        <h4>@Model.PhoneNumber</h4>
+                    <h4>@Model.PhoneNumber</h4>
                 </div>
 
                 <hr class="w-75 mx-auto"/>
@@ -155,7 +160,10 @@ font-size: 2rem;
                     {
                         <li class="timeline-item mb-5">
                             <span class="timeline-icon">
-                                <img class="w-100 rounded" src="~/uploads/teams/logos/@transfer.Team.LogoPath" alt="team' logo"/>
+                                @{
+                                        var logoPathPart = string.IsNullOrEmpty(transfer.Team.LogoPath) ? "default.png" : transfer.Team.LogoPath;
+                                    }
+                                <img class="w-25 rounded" src="~/uploads/teams/logos/@logoPathPart" alt="team' logo"/>
                             </span>
 
                             <h5 class="fw-bold">@transfer.Team.Name</h5>
@@ -173,9 +181,21 @@ font-size: 2rem;
         else
         {
             <h3>No transfers found.</h3>
-            <a asp-controller="Transfers" asp-action="Index">Add new transfer</a>
+            
         }
-
+        
+        @if (Model.Players != null)
+        {
+            @if (Model.Players.Count <= 5)
+            {
+                <a asp-controller="Transfers" asp-action="PlayersIndex">Add new player</a>
+            }
+            else
+            {
+                <i>The team is full.</i>
+            }
+        }
+        
         <!-- Player transfer history -->
     </div>
 </div>

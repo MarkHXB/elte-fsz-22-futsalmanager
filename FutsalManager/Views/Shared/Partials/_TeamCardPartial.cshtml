@@ -16,7 +16,10 @@
         <strong>Count of players: </strong>
         <span class="badge bg-primary m-1">@Model.Players.Count</span>
     </span>
-    <img src="@("~/uploads/teams/logos/" + Model.LogoPath)" asp-append-version="true" class="card-img-top">
+    @{
+            var logoPathPart = string.IsNullOrEmpty(Model.LogoPath) ? "default.png" : Model.LogoPath;
+        }
+    <img src="@("~/uploads/teams/logos/" + logoPathPart)" asp-append-version="true" class="card-img-top" alt="team's logo">
     <div class="card-body text-center">
         <h5 class="card-title">@Model.Name</h5>
         <h6 class="card-subtitle mb-2 text-muted">@Model.City</h6>

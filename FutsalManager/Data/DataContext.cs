@@ -24,12 +24,14 @@ namespace FutsalManager.Data
         {
             if (!optionsBuilder.IsConfigured)
             {
+                optionsBuilder.EnableSensitiveDataLogging();
                 optionsBuilder.UseSqlServer("Data Source=DESKTOP-QC0KBSP;Initial Catalog=futsalmanager;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
             }
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
             modelBuilder.Entity<Attribute>(entity =>
             {
                 entity.Property(e => e.Dribbling).HasDefaultValueSql("((50))");
