@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace FutsalManager.Models
@@ -39,6 +40,7 @@ namespace FutsalManager.Models
         [AllowedExtensionsAttribute(new[] { ".jpg", ".jpeg", ".jfif", ".png" })]
         [MaxFileSize(5 * 1024 * 1024)]
         [Display(Name = "Upload logo image")]
+        [BindProperty]
         public IFormFile? FileModel { get; set; }
 
         public virtual ICollection<Player> Players { get; set; }

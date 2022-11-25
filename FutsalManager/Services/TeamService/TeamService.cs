@@ -61,6 +61,7 @@ namespace FutsalManager.Services.TeamService
             if (string.IsNullOrEmpty(searchstring)) return result;
 
             result = await _context.Teams.Where(p => p.Name.ToLower().Contains(searchstring.ToLower()))
+                .Include(p=>p.Players)
                 .ToListAsync();
 
             return result;

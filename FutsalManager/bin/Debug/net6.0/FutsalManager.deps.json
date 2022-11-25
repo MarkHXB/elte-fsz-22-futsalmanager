@@ -34,6 +34,7 @@
     ".NETCoreApp,Version=v6.0": {
       "FutsalManager/1.0.0": {
         "dependencies": {
+          "M6T.Core.TupleModelBinder": "1.4.0",
           "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": "6.0.10",
           "Microsoft.EntityFrameworkCore": "6.0.10",
           "Microsoft.EntityFrameworkCore.Design": "6.0.10",
@@ -356,6 +357,20 @@
         },
         "compile": {
           "lib/netstandard2.0/JetBrains.Annotations.dll": {}
+        }
+      },
+      "M6T.Core.TupleModelBinder/1.4.0": {
+        "dependencies": {
+          "Newtonsoft.Json": "13.0.2-beta2"
+        },
+        "runtime": {
+          "lib/net5.0/M6T.Core.TupleModelBinder.dll": {
+            "assemblyVersion": "1.4.0.0",
+            "fileVersion": "1.4.0.0"
+          }
+        },
+        "compile": {
+          "lib/net5.0/M6T.Core.TupleModelBinder.dll": {}
         }
       },
       "MessagePack/2.1.152": {
@@ -4735,6 +4750,13 @@
       "sha512": "sha512-ASfpoFJxiRsC9Xc4TWuPM41Zb/gl64xwfMOhnOZ3RnVWGYIZchjpWQV5zshJgoc/ZxVtgjaF7b577lURj7E6ig==",
       "path": "jetbrains.annotations/2022.1.0",
       "hashPath": "jetbrains.annotations.2022.1.0.nupkg.sha512"
+    },
+    "M6T.Core.TupleModelBinder/1.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-jNAXjpLEweiGxsM5sTILWW4tb5oR3xsSS9hCQb6qj/Yed+h3OId1/17gmpVzCcYebtSnzm2sUIihw6a9wSmMbQ==",
+      "path": "m6t.core.tuplemodelbinder/1.4.0",
+      "hashPath": "m6t.core.tuplemodelbinder.1.4.0.nupkg.sha512"
     },
     "MessagePack/2.1.152": {
       "type": "package",

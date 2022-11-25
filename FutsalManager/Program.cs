@@ -5,6 +5,7 @@ global using FutsalManager.Extensions;
 global using FutsalManager.Models.History;
 using Microsoft.EntityFrameworkCore;
 using FutsalManager.Server.Configurations;
+using M6T.Core.TupleModelBinder;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,12 +20,13 @@ builder.Services.AddDbContext<DataContext>(options =>
 builder.Services.AddWebServices(builder.Configuration);
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options =>
+{
+    options.ModelBinderProviders.Insert(0, new TupleModelBinderProvider());
+});
 
 builder.Services.AddDistributedMemoryCache();  
-builder.Services.AddSession(options => {  
-    options.IdleTimeout = TimeSpan.FromMinutes(1);//You can set Time   
-});  
+
 var app = builder.Build();
 
 
@@ -38,8 +40,6 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
-
-app.UseSession();
 
 
 app.UseRouting();

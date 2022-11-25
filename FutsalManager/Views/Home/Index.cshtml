@@ -17,7 +17,7 @@
         <span class="d-flex justify-content-end m-2">Found players: @ViewBag.Players.Count</span>
         @foreach (var player in ViewBag.Players)
         {
-            <div class="col col-sm-12 col-md-6 col-lg-4 col-xl-3">
+            <div class="col col-sm-12 col-md-6 col-lg-4 col-xl-3 d-flex justify-content-center">
                 @await Html.PartialAsync("Partials/_PlayerCardPartial",
                     player,
                     new ViewDataDictionary(ViewData)

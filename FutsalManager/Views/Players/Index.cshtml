@@ -33,16 +33,46 @@
     </tr>
     </thead>
     <tbody>
+
     @foreach (var player in Model)
-        {
-            @await Html.PartialAsync("Partials/_PlayerCellPartial",
-                player,
-                new ViewDataDictionary(ViewData)
-                {
-                    { "actionurl", $"/players/details/{player.Id}" },
-                    { "actiontitle", "Details" },
-                })
-            ;
-        }
+    {
+        var nat = player.Nationality[..2].ToLower();
+        var actionUrl = ViewData["actionurl"];
+        var actionTitle = ViewData["actiontitle"];
+
+        <tr class="shadow-sm box h-100">
+            <td>
+                @{
+                    var logoPathPart = string.IsNullOrEmpty(player.Team?.LogoPath) ? "default.png" : player.Team?.LogoPath;
+                }
+                <img src="~/uploads/teams/logos/@logoPathPart" alt="team's logo" style="max-width:5rem" class="rounded">
+            </td>
+            <td>
+                <h4>@Html.DisplayFor(modelItem => player.FullName)</h4>
+            </td>
+
+            <td>
+                <p class="d-none">@Html.DisplayFor(modelItem => player.Nationality)</p>
+                <img
+                    src="https://flagcdn.com/96x72/@(nat).png"
+                    width="56"
+                    height="42"
+                    alt="@player.Nationality">
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => player.Age)
+            </td>
+
+            <td>
+                <strong>@PlayerFunctions.GetOverallRating(player)</strong>
+            </td>
+
+            <td>
+                <a href="@actionUrl" class="btn btn-primary" id="playerpartialactionbutton">@actionTitle</a>
+            </td>
+
+        </tr>
+    }
     </tbody>
 </table>

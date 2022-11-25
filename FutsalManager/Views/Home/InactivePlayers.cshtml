@@ -1,0 +1,207 @@
+﻿@model Test
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<style>
+    .hidden{display:none;}
+</style>
+
+@{
+    var players = Model.InactivePlayers.ToList();
+    var pactivePlayersList = players.Where(p => p.IsActive).ToList();
+    var pinactivePlayersList = players.Where(p => p.IsActive == false).ToList();
+}
+
+
+<form asp-action="SaveInactivePlayers" method="post">
+    <div class="text-center mt-5 mb-5">
+        <input type="submit" class="btn btn-primary btn-lg" asp-controller="Home" asp-action="SaveInactivePlayers" value="Save / Refresh">
+    </div>
+
+
+    <div class="px-4 text-center">
+        <div class="row mt-3 mb-3">
+            <div class="col-sm-12 col-md-12 col-lg-6">
+
+                <!-- Inactive players section -->
+                <h4>Inactive players list</h4>
+                <span id="inactiveplayerstoggler" class="d-flex align-items-center justify-content-center">
+                    <div class="btn btn-primary">
+                        Show inactive players
+                        <i class="bi bi-arrow-up" style="font-size: 1.5rem"></i>
+                        <i class="hidden bi bi-arrow-down" style="font-size: 1.5rem"></i>
+                    </div>
+
+                </span>
+                <div id="inactiveplayerscontainer" class="row mt-3 mb-1" style="background:rgba(0,0,0,.1);min-width: 50px" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    @for (int i = 0; i < pinactivePlayersList.Count; i++)
+                    {
+                        <div id="player-@pinactivePlayersList[i].Id" class="col-12 d-flex justify-content-center player-card-identifier" style="cursor: move;" draggable="true" ondragstart="drag(event)">
+                            @{
+                                string name = $"Players[{i}].Id";
+                                string value = pinactivePlayersList[i].Id.ToString();
+                            }
+
+                            <input name="@name" value="@value" class="hidden" id="player-input-id"/>
+                            @await Html.PartialAsync("Partials/_PlayerCardMinifiedPartial",
+                                pinactivePlayersList[i],
+                                new ViewDataDictionary(ViewData)
+                                {
+                                    { "viewmodel", "advertising" },
+                                })
+                        </div>
+                    }
+                </div>
+                <!-- Inactive players section END -->
+
+                <hr class="w-75 mx-auto"/>
+
+                <!-- Active players section -->
+                <h4>
+                    Active players list
+                    <p class="text-muted fs-6">(can't transfer)</p>
+                </h4>
+                <span id="activeplayerstoggler" class="d-flex align-items-center justify-content-center">
+                    <div class="btn btn-success">
+                        Show active players
+                        <i class="bi bi-arrow-up" style="font-size: 1.5rem"></i>
+                        <i class="hidden bi bi-arrow-down" style="font-size: 1.5rem"></i>
+                    </div>
+                </span>
+                <div id="activeplayerscontainer" class="row mt-3 mb-1">
+                    @foreach (var player in pactivePlayersList)
+                    {
+                        <div class="col-12 d-flex justify-content-center">
+                            @await Html.PartialAsync("Partials/_PlayerCardMinifiedPartial",
+                                player,
+                                new ViewDataDictionary(ViewData)
+                                {
+                                    { "viewmodel", "advertising" },
+                                })
+
+                        </div>
+                    }
+                </div>
+                <!-- Active players section END -->
+
+            </div>
+            <div class="col-sm-12 col-md-12 col-lg-6">
+                <h4>Avaliable teams list</h4>
+
+                <div class="row">
+                    @for (int i = 0; i < Model.Teams.Count; i++)
+                    {
+                        var team = Model.Teams[i];
+
+                        string id = $"Teams[{i}].Id";
+                        string tname = $"Teams[{i}].Name";
+                        string idv = team.Id.ToString();
+                        string namev = team.Name;
+
+                        <input name="@id" value="@idv" class="hidden"/>
+                        <input name="@tname" value="@namev" class="hidden"/>
+
+
+                        <div class="col-12 mt-3 mb-2">
+                            <div class="row d-flex justify-content-center" style="height:20px;">
+                                @{
+                                    var activePlayers = team.Players.Where(p => p.IsActive).ToList().Count();
+                                    var inactiveplayers = team.Players.Where(p => p.IsActive).ToList().Count();
+                                    var freespaces = 5 - (activePlayers + inactiveplayers);
+                                }
+
+                                @for (int j = 0; j < activePlayers; j++)
+                                {
+                                    <div class="col-2 m-1 rounded" style="background-color:red"></div>
+                                }
+                                @for (int j = 0; j < inactiveplayers; j++)
+                                {
+                                    <div class="col-2 m-1 rounded" style="background-color:green"></div>
+                                }
+                                @for (int j = 0; j < freespaces; j++)
+                                {
+                                    <div class="col-2 m-1 rounded" style="background-color:green"></div>
+                                }
+
+                            </div>
+                            <span class="team-cell d-flex align-items-center justify-content-between border rounded p-2">
+                                @{
+                                    var logoPathPart = string.IsNullOrEmpty(team.LogoPath) ? "default.png" : team.LogoPath;
+                                }
+                                <img src="@("~/uploads/teams/logos/" + logoPathPart)" asp-append-version="true" class="card-img-top" alt="team's logo" style="max-width:80px">
+                                <h5>@team.Name</h5>
+                                <i class="hidden bi bi-arrow-up" style="font-size: 1.5rem"></i>
+                                <i class="bi bi-arrow-down" style="font-size: 1.5rem"></i>
+                            </span>
+                            <div id="team-@team.Name-container" class="hidden teams-players-container border rounded p-1" ondrop="drop(event)" ondragover="allowDrop(event)">
+                                <p class="hidden" id="index">@i</p>
+                                @for (int j = 0; j < team.Players.ToList().Count; j++)
+                                {
+                                    var player = team.Players.ToList()[j];
+                                    <div class="col" class="player-card-identifier">
+                                        @{
+                                            string name = $"Teams[{i}].Players[{j}].Id";
+                                            string value = player.Id.ToString();
+                                        }
+                                        <input name="@name" value="@value" class="hidden" id="p-@j"/>
+                                        @await Html.PartialAsync("Partials/_PlayerCardMinifiedPartial",
+                                            player,
+                                            new ViewDataDictionary(ViewData)
+                                            {
+                                                { "viewmodel", "advertising" },
+                                            })
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+@section Scripts{
+    <script>
+    $("#activeplayerstoggler").click(function (){
+         let $arrows = $(this).find("i");
+        $("#activeplayerscontainer").fadeToggle();
+        $arrows.toggle();
+        });
+    
+    $("#inactiveplayerstoggler").click(function (){
+             let $arrows = $(this).find("i");
+            $("#inactiveplayerscontainer").fadeToggle();
+            $arrows.toggle();
+            });
+    
+    $(".team-cell").click(function (){
+                 let $arrows = $(this).find("i");
+                $(this).parent().find(".teams-players-container").fadeToggle();
+                $arrows.toggle();
+                });
+    </script>
+
+    <script>
+    function allowDrop(ev) {
+      ev.preventDefault();
+    }
+    
+    function drag(ev) {
+      ev.dataTransfer.setData("text", ev.target.id);
+    }
+    
+    function drop(ev) {
+      ev.preventDefault(); 
+      let data = ev.dataTransfer.getData("text");         
+      ev.target.appendChild(document.getElementById(data));  
+    }
+    
+    $(".teams-players-container").bind('DOMNodeInserted',function (ev){      
+        const parent = ev.target.parentNode;
+        console.log(parent.id);
+    });
+</script>
+}

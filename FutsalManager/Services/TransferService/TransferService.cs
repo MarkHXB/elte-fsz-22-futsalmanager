@@ -20,6 +20,8 @@ namespace FutsalManager.Services.TransferService
         {
             if (player == null) return false;
 
+            if (player.IsActive) return false;
+            
             var team = _context.Teams.FirstOrDefault(t => t.Id == player.TeamId);
             player.Team = team;
 
@@ -48,6 +50,8 @@ namespace FutsalManager.Services.TransferService
             if (IsLastTransferWasSameTeam(player, team)) return false;
 
             if (IsPlayerInAlreadyInSameTeam(player, team)) return false;
+
+            if (player.IsActive) return false;
             
             var transfer = new Transfer()
             {

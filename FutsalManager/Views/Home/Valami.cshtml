@@ -1,0 +1,25 @@
+﻿@model Test
+
+@{
+    Layout = null;
+}
+
+@using (Html.BeginForm())
+{
+    @for (int i = 0; i < Model.Teams.Count; i++)
+    {
+        @Html.TextBoxFor(m => m.Teams[i].Name, new { @class = "form-control", @readonly = "readonly" })
+        @Html.TextBoxFor(m => m.Teams[i].City, new { @class = "form-control", @readonly = "readonly" })
+        @Html.TextBoxFor(m => m.Teams[i].PhoneNumber, new { @class = "form-control", @readonly = "readonly" })
+
+        var players = Model.Teams[i].Players.ToList();
+
+        @for (int j = 0; j < players.Count; j++)
+        {
+            string name = $"Teams[{i}].Players[{j}].Id";
+            string value = Model.Teams[i].Players.ToList()[j].Id.ToString();
+            <input name="@name" value="@value" />
+        }
+    }
+    <input type="submit" value="Send"/>
+}

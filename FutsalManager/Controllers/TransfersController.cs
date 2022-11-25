@@ -36,6 +36,9 @@ namespace FutsalManager.Controllers
         public async Task<IActionResult> PlayersIndex()
         {
             var players = await _playerService.GetPlayersAsync();
+            
+            players = await players.Where(p => p.IsActive == false).ToListAsync();
+            
             return View(players);
         }
         

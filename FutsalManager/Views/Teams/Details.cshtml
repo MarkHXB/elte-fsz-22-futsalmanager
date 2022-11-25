@@ -17,9 +17,6 @@ font-size: 2rem;
 
 </style>
 <div class="container d-flex justify-content-end align-items-center m-3">
-    <a class="action-icon" asp-controller="Teams" asp-action="EditLogo" asp-route-id="@Model.Id">
-        <i class="bi bi-card-image" style="color: purple;"></i>
-    </a>
     <a class="action-icon" asp-controller="Teams" asp-action="Edit" asp-route-id="@Model.Id">
         <i class="bi bi-pencil-square" style="color: blue;"></i>
     </a>
@@ -39,7 +36,7 @@ font-size: 2rem;
     </div>
     <div class="card-body" id="details-body" style="display: block">
         <!-- Team information -->
-        <a class="action-icon d-flex justify-content-end" asp-controller="Players" asp-action="Edit" asp-route-id="@Model.Id">
+        <a class="action-icon d-flex justify-content-end" asp-controller="Teams" asp-action="Edit" asp-route-id="@Model.Id">
             <i class="bi bi-pencil-square" style="color: blue;"></i>
         </a>
         <div class="row text-center">

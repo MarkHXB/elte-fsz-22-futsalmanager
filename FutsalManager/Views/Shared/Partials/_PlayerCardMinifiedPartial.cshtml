@@ -1,0 +1,119 @@
+﻿@model Player
+
+<style>
+    .bi-bookmark-check-fill{
+    color:green;
+font-size: 1.3em;
+margin-left: 0.5em;
+    }
+     
+    .bi-bookmark-dash-fill{
+    color:red;
+    font-size: 1.3em;
+    margin-left: 0.5em;
+    }
+    .inactive-player-card{
+    pointer-events:none;
+    opacity:.6;
+    }
+    .player-card{
+    max-width: 15rem;
+       border-width:3px;
+       border-style: solid;
+    }
+    .player-card-bad-rating{
+        border-color:red;
+    }
+    .player-card-avg-rating{
+            border-color:orange;
+        }
+        .player-card-good-rating{
+                border-color:green;
+            }
+            .player-card-exc-rating{
+                    border-color:blue;
+                }
+</style>
+
+@{
+    var nat = Model.Nationality[..2].ToLower();
+    string mode = ViewData["viewmodel"] as string ?? string.Empty;
+    bool activity = !Model.IsActive;
+    var playerRating = PlayerFunctions.GetOverallRating(Model);
+
+    string getPlayerCardBColor(int rating)
+    {
+        if (playerRating <= 35) return "player-card-bad-rating";
+        if (playerRating <= 50) return "player-card-avg-rating";
+        if (playerRating <= 75) return "player-card-good-rating";
+         return "player-card-exc-rating";
+    }
+}
+
+<div class="card text-center m-1 @(Model.IsActive ? "inactive-player-card" : "") player-card @(getPlayerCardBColor(playerRating))" >
+    <span class="d-flex justify-content-end align-items-center p-1">
+        <strong>@(Model.IsActive ? "Active" : "Inactive")</strong>
+        @if (Model.IsActive)
+        {
+            <i class="bi bi-bookmark-check-fill "></i>
+        }
+        else
+        {
+            <i class="bi bi-bookmark-dash-fill"></i>
+        }
+    </span>
+    <div class="card-body">
+        <h5 class="card-title text-center">@Model.FullName</h5>
+        <table class="table text-center">
+            <thead>
+            <tr>
+                <th>Rat</th>
+                <th>Pos</th>
+                <th>Nat</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <strong id="playerrating">@playerRating</strong>
+                </td>
+                <td>
+                    @Model.Position?.Pos
+                </td>
+                <td>
+                    <img
+                        src="https://flagcdn.com/96x72/@(nat).png"
+                        width="32"
+                        height="24"
+                        alt="@Model.Nationality">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="row">
+            <a asp-controller="Players" asp-action="Details" asp-route-id="@Model.Id" class="col col-12 p-1 mt-1 btn btn-primary">View details</a>
+            @if (mode == "crud")
+            {
+                <a asp-controller="Players" asp-action="Edit" asp-route-id="@Model.Id" class="col col-12 p-1 mt-1 btn btn-primary">Edit</a>
+                <a asp-controller="Players" asp-action="Delete" asp-route-id="@Model.Id" class="col col-12 p-1 mt-1 btn btn-danger">Delete</a>
+            }
+            else if (mode == "search")
+            {
+                <a
+                    asp-controller="Players"
+                    asp-action="SetActivity"
+                    asp-route-id="@Model.Id"
+                    asp-route-activity="@activity"
+                    class="col col-12 p-1 mt-1 btn btn-@(Model.IsActive ? "success" : "warning")">
+                    @(Model.IsActive ? "Inactivate" : "Activate")
+                </a>
+            }
+             else if (mode == "transfer")
+             {
+                 <a asp-controller="Transfers" asp-action="TeamsIndex" asp-route-playerid="@Model.Id" class="col col-12 p-1 mt-1 btn btn-primary">Choose to transfer</a>
+             }
+            
+        </div>
+    </div>
+</div>

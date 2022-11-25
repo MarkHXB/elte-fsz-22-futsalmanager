@@ -10,10 +10,10 @@
 <hr/>
 <div class="container d-flex flex-column justify-content-center">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id"/>
-             <input type="hidden" asp-for="LogoPath"/>
+
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control"/>
@@ -34,7 +34,28 @@
                 <input asp-for="PhoneNumber" class="form-control"/>
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
-            
+
+            @if (string.IsNullOrEmpty(Model.LogoPath))
+            {
+                <div class="form-group">
+                    @(Model.LogoPath = "");
+                    <h3>The team need a logo image</h3>
+                </div>
+            }
+            else
+            {
+                <div class="form-group">
+                    <h3>Current logo</h3>
+                    <img src="~/uploads/teams/logos/@Model.LogoPath" alt="team's logo"/>
+                </div>
+            }
+
+            <div class="form-group">
+                <label asp-for="FileModel" class="control-label"></label>
+                <input type="file" accept="image/png, image/jpg, image/jpeg, image/jfif" asp-for="FileModel" class="form-control"/>
+                <span asp-validation-for="FileModel" class="text-danger"></span>
+            </div>
+
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary"/>
             </div>

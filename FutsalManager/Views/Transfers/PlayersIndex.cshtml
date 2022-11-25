@@ -4,17 +4,23 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
-
-@foreach (var player in Model)
+@if (Model.Any())
 {
-    <div class="col col-sm-12 col-md-6 col-lg-4 col-xl-3">
-        @await Html.PartialAsync("Partials/_PlayerCardPartial",
-            player,
-            new ViewDataDictionary(ViewData)
-            {
-                { "viewmodel", "transfer" },
-            })
-
-    </div>
+    <h1>Choose one player to transfer</h1>
+    @foreach (var player in Model)
+    {
+        <div class="col col-sm-12 col-md-6 col-lg-4 col-xl-3">
+            @await Html.PartialAsync("Partials/_PlayerCardPartial",
+                player,
+                new ViewDataDictionary(ViewData)
+                {
+                    { "viewmodel", "transfer" },
+                })
+        </div>
+    }
+}
+else
+{
+    <h4 class="text-muted mt-4">Not found any inactive players.</h4>
+    <a class="btn btn-primary mt-1" asp-controller="Home" asp-action="Index">Back to dashboard</a>
 }

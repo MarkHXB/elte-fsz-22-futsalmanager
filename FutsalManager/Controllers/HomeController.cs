@@ -43,9 +43,49 @@ public class HomeController : Controller
         return View();
     }
     
-
-    public IActionResult Search()
+    // GET: inactiveplayers
+    public async Task<IActionResult> InactivePlayers()
     {
-        return View();
+        var players = await _playerService.GetPlayersAsync();
+        var teams = await _teamService.GetTeamsAsync();
+
+        // ViewBag.Players = players;
+        // ViewBag.Teams = teams;
+
+        Test test = new()
+        {
+            InactivePlayers = players,
+            Teams = teams
+        };
+
+        return View(test);
+    }
+
+    public async Task<IActionResult> Valami()
+    {
+        var players = await _playerService.GetPlayersAsync();
+        var teams = await _teamService.GetTeamsAsync();
+
+        Test test = new()
+        {
+            InactivePlayers = players,
+            Teams = teams
+        };
+        
+        return View(test);
+    }
+
+    [HttpPost]
+    public IActionResult Valami(Test model)
+    {
+        return RedirectToAction(nameof(Valami),model);
+    }
+    
+
+    // POST: inactiveplayers
+    [HttpPost]
+    public IActionResult SaveInactivePlayers(Test model)
+    {
+        return RedirectToAction(nameof(InactivePlayers));
     }
 }

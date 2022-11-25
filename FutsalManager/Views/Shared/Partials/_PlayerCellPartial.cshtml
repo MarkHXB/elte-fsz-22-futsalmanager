@@ -1,41 +1,77 @@
 ﻿@model Player
 
+<style>
+    .bi-bookmark-check-fill{
+    color:green;
+font-size: 1.3em;
+margin-left: 0.5em;
+    }
+     
+    .bi-bookmark-dash-fill{
+    color:red;
+    font-size: 1.3em;
+    margin-left: 0.5em;
+    }
+    .inactive-player-card{
+    pointer-events:none;
+    opacity:.6;
+    }
+    .player-card{
+       border-width:3px;
+       border-style: solid;
+    }
+    .player-card-bad-rating{
+        border-color:red;
+    }
+    .player-card-avg-rating{
+            border-color:orange;
+        }
+        .player-card-good-rating{
+                border-color:green;
+            }
+            .player-card-exc-rating{
+                    border-color:blue;
+                }
+</style>
+
 @{
     var nat = Model.Nationality[..2].ToLower();
-    var actionUrl = ViewData["actionurl"];
-    var actionTitle = ViewData["actiontitle"];
+    string mode = ViewData["viewmodel"] as string ?? string.Empty;
+    bool activity = !Model.IsActive;
+    var playerRating = PlayerFunctions.GetOverallRating(Model);
+
+    string getPlayerCardBColor(int rating)
+    {
+        if (playerRating <= 35) return "player-card-bad-rating";
+        if (playerRating <= 50) return "player-card-avg-rating";
+        if (playerRating <= 75) return "player-card-good-rating";
+        return "player-card-exc-rating";
+    }
 }
 
-<tr class="shadow-sm box h-100">
-    <td>
-        @{
-                var logoPathPart = string.IsNullOrEmpty(Model?.Team?.LogoPath) ? "default.png" : Model?.Team?.LogoPath;
-            }
-        <img src="~/uploads/teams/logos/@logoPathPart" alt="team's logo" style="max-width:5rem" class="rounded">
-    </td>
-    <td>
-        <h4>@Html.DisplayFor(modelItem => Model!.FullName)</h4>
-    </td>
+<div class="row player-card @(getPlayerCardBColor(playerRating)) @(Model.IsActive ? "inactive-player-card" : "")">
+    <span class="p-1">
+        <strong>@(Model.IsActive ? "Active" : "Inactive")</strong>
+        @if (Model.IsActive)
+        {
+            <i class="bi bi-bookmark-check-fill "></i>
+        }
+        else
+        {
+            <i class="bi bi-bookmark-dash-fill"></i>
+        }
+    </span>
+    <strong class="text-center m-1">@Model.FullName</strong>
+    
+    <strong id="playerrating" class="m-1">@playerRating</strong>
 
-    <td>
-        <p class="d-none">@Html.DisplayFor(modelItem => Model!.Nationality)</p>
-        <img
-            src="https://flagcdn.com/96x72/@(nat).png"
-            width="56"
-            height="42"
-            alt="@Model?.Nationality">
-    </td>
+    <p class="m-1"> @Model.Position?.Pos</p>
+    
+    <img
+        src="https://flagcdn.com/96x72/@(nat).png"
+        width="32"
+        height="24"
+        alt="@Model.Nationality"
+        class="m-1">
 
-    <td>
-        @Html.DisplayFor(modelItem => Model!.Age)
-    </td>
-
-    <td>
-        <strong>@PlayerFunctions.GetOverallRating(Model)</strong>
-    </td>
-
-    <td>
-        <a href="@actionUrl" class="btn btn-primary" id="playerpartialactionbutton">@actionTitle</a>
-    </td>
-
-</tr>
+</div>

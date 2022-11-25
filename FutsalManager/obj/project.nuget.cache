@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "pKHtUOuJf//huBZkomjbRADWIR+IpmcqFEhLSadE+q6YEjnzkB3ONNh3T+4zMLeH0dr6/mkKX5ftjHq3CnfWXA==",
+  "dgSpecHash": "h0IZQvQxyXU+Rkh6fWdNaQoCl06aJW2lpDPJCADs2RRjqs8rHq0QfWVOWkELAbtFvVaADELJa5dmbof6GRDaIA==",
   "success": true,
   "projectFilePath": "C:\\Users\\bakon\\Desktop\\ELTE\\WEB3 - C#\\futsalmanager-mvc\\FutsalManager\\FutsalManager.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\bakon\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\bakon\\.nuget\\packages\\jetbrains.annotations\\2022.1.0\\jetbrains.annotations.2022.1.0.nupkg.sha512",
+    "C:\\Users\\bakon\\.nuget\\packages\\m6t.core.tuplemodelbinder\\1.4.0\\m6t.core.tuplemodelbinder.1.4.0.nupkg.sha512",
     "C:\\Users\\bakon\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
     "C:\\Users\\bakon\\.nuget\\packages\\messagepack.annotations\\2.1.152\\messagepack.annotations.2.1.152.nupkg.sha512",
     "C:\\Users\\bakon\\.nuget\\packages\\messagepackanalyzer\\2.1.152\\messagepackanalyzer.2.1.152.nupkg.sha512",

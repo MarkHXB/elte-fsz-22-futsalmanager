@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "uXxsVGgmjGTN+rY95RYiH9jWs6jqj45fj3zh3P7U0OY=",
+  "Hash": "4GL5Bc0ArGRHlx6xDGtba1yX+GrNGJu72tGmkm7xLxQ=",
   "Source": "FutsalManager",
   "BasePath": "_content/FutsalManager",
   "Mode": "Default",
@@ -3825,6 +3825,23 @@
       "OriginalItemSpec": "wwwroot\\uploads\\teams\\logos\\Corinthians9a738c2e-cd65-48d4-9983-db1ca3fcb6b9.png"
     },
     {
+      "Identity": "C:\\Users\\bakon\\Desktop\\ELTE\\WEB3 - C#\\futsalmanager-mvc\\FutsalManager\\wwwroot\\uploads\\teams\\logos\\default.png",
+      "SourceId": "FutsalManager",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\bakon\\Desktop\\ELTE\\WEB3 - C#\\futsalmanager-mvc\\FutsalManager\\wwwroot\\",
+      "BasePath": "_content/FutsalManager",
+      "RelativePath": "uploads/teams/logos/default.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\teams\\logos\\default.png"
+    },
+    {
       "Identity": "C:\\Users\\bakon\\Desktop\\ELTE\\WEB3 - C#\\futsalmanager-mvc\\FutsalManager\\wwwroot\\uploads\\teams\\logos\\Ferencvarosfd381ee7-b3e0-45a9-a2a9-cb18e0ef5633.png",
       "SourceId": "FutsalManager",
       "SourceType": "Discovered",
@@ -3842,6 +3859,23 @@
       "OriginalItemSpec": "wwwroot\\uploads\\teams\\logos\\Ferencvarosfd381ee7-b3e0-45a9-a2a9-cb18e0ef5633.png"
     },
     {
+      "Identity": "C:\\Users\\bakon\\Desktop\\ELTE\\WEB3 - C#\\futsalmanager-mvc\\FutsalManager\\wwwroot\\uploads\\teams\\logos\\Gödöllői bikák813afa37-bd38-40a6-a7b3-49d4da784553.jpg",
+      "SourceId": "FutsalManager",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\bakon\\Desktop\\ELTE\\WEB3 - C#\\futsalmanager-mvc\\FutsalManager\\wwwroot\\",
+      "BasePath": "_content/FutsalManager",
+      "RelativePath": "uploads/teams/logos/Gödöllői bikák813afa37-bd38-40a6-a7b3-49d4da784553.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\teams\\logos\\Gödöllői bikák813afa37-bd38-40a6-a7b3-49d4da784553.jpg"
+    },
+    {
       "Identity": "C:\\Users\\bakon\\Desktop\\ELTE\\WEB3 - C#\\futsalmanager-mvc\\FutsalManager\\wwwroot\\uploads\\teams\\logos\\Gödöllői bikákbc942ec3-2b08-47d3-80b7-0bce4bb6dcaf.jpeg",
       "SourceId": "FutsalManager",
       "SourceType": "Discovered",
@@ -3857,6 +3891,40 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\uploads\\teams\\logos\\Gödöllői bikákbc942ec3-2b08-47d3-80b7-0bce4bb6dcaf.jpeg"
+    },
+    {
+      "Identity": "C:\\Users\\bakon\\Desktop\\ELTE\\WEB3 - C#\\futsalmanager-mvc\\FutsalManager\\wwwroot\\uploads\\teams\\logos\\Gödöllői bikákd0147367-eaf6-438a-9f61-b2835d170f7d.jpg",
+      "SourceId": "FutsalManager",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\bakon\\Desktop\\ELTE\\WEB3 - C#\\futsalmanager-mvc\\FutsalManager\\wwwroot\\",
+      "BasePath": "_content/FutsalManager",
+      "RelativePath": "uploads/teams/logos/Gödöllői bikákd0147367-eaf6-438a-9f61-b2835d170f7d.jpg",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\teams\\logos\\Gödöllői bikákd0147367-eaf6-438a-9f61-b2835d170f7d.jpg"
+    },
+    {
+      "Identity": "C:\\Users\\bakon\\Desktop\\ELTE\\WEB3 - C#\\futsalmanager-mvc\\FutsalManager\\wwwroot\\uploads\\teams\\logos\\Gödöllői bikáke8433c5e-d3ab-4926-adc1-8934d846e126.png",
+      "SourceId": "FutsalManager",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\bakon\\Desktop\\ELTE\\WEB3 - C#\\futsalmanager-mvc\\FutsalManager\\wwwroot\\",
+      "BasePath": "_content/FutsalManager",
+      "RelativePath": "uploads/teams/logos/Gödöllői bikáke8433c5e-d3ab-4926-adc1-8934d846e126.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\uploads\\teams\\logos\\Gödöllői bikáke8433c5e-d3ab-4926-adc1-8934d846e126.png"
     }
   ]
 }

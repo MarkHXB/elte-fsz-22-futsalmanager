@@ -78,14 +78,16 @@ namespace FutsalManager.Controllers
             {
                 return NotFound();
             }
-
+            
             if (!ModelState.IsValid) return View(team);
-
+            
+            FileUpload.UploadTeamLogo(team);
+            
             var success = await _teamService.UpdateTeamAsync(team);
-
+            
             if (success)
                 return RedirectToAction(nameof(Index));
-
+            
             return View(team);
         }
 
@@ -112,17 +114,6 @@ namespace FutsalManager.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // GET: Teams/EditLogo/5
-        public async Task<IActionResult> EditLogo(int? id)
-        {
-            var team = await _teamService.GetTeamAsync(id);
-
-            if (team == null)
-                return RedirectToAction(nameof(Index));
-            
-            return RedirectToAction(nameof(Index));
-        }
-        
         #endregion
     }
 }

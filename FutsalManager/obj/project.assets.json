@@ -28,6 +28,21 @@
           }
         }
       },
+      "M6T.Core.TupleModelBinder/1.4.0": {
+        "type": "package",
+        "dependencies": {
+          "Newtonsoft.Json": "12.0.3"
+        },
+        "compile": {
+          "lib/net5.0/M6T.Core.TupleModelBinder.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/M6T.Core.TupleModelBinder.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "MessagePack/2.1.152": {
         "type": "package",
         "dependencies": {
@@ -3782,6 +3797,19 @@
         "lib/netstandard2.0/JetBrains.Annotations.xml",
         "lib/portable40-net40+sl5+win8+wp8+wpa81/JetBrains.Annotations.dll",
         "lib/portable40-net40+sl5+win8+wp8+wpa81/JetBrains.Annotations.xml"
+      ]
+    },
+    "M6T.Core.TupleModelBinder/1.4.0": {
+      "sha512": "jNAXjpLEweiGxsM5sTILWW4tb5oR3xsSS9hCQb6qj/Yed+h3OId1/17gmpVzCcYebtSnzm2sUIihw6a9wSmMbQ==",
+      "type": "package",
+      "path": "m6t.core.tuplemodelbinder/1.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "lib/net5.0/M6T.Core.TupleModelBinder.dll",
+        "m6t.core.tuplemodelbinder.1.4.0.nupkg.sha512",
+        "m6t.core.tuplemodelbinder.nuspec"
       ]
     },
     "MessagePack/2.1.152": {
@@ -10415,6 +10443,7 @@
   },
   "projectFileDependencyGroups": {
     "net6.0": [
+      "M6T.Core.TupleModelBinder >= 1.4.0",
       "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation >= 6.0.10",
       "Microsoft.EntityFrameworkCore >= 6.0.10",
       "Microsoft.EntityFrameworkCore.Design >= 6.0.10",
@@ -10471,6 +10500,10 @@
       "net6.0": {
         "targetAlias": "net6.0",
         "dependencies": {
+          "M6T.Core.TupleModelBinder": {
+            "target": "Package",
+            "version": "[1.4.0, )"
+          },
           "Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation": {
             "target": "Package",
             "version": "[6.0.10, )"
