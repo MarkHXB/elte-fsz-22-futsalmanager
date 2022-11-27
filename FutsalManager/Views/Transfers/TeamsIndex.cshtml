@@ -6,16 +6,21 @@
 
 <h1>Index</h1>
 
-@foreach (var team in Model)
-{
-    <div class="col col-sm-12 col-md-6 col-lg-4 col-xl-3">
-        @await Html.PartialAsync("Partials/_TeamCardPartial",
-            team,
-            new ViewDataDictionary(ViewData)
-            {
-                { "viewmodel", "transfer" },
-                {"choosedplayerid", ViewBag.PlayerId}
-            })
+<div class="row">
+    @foreach (var team in Model)
+    {
+        <div class="col col-sm-12 col-md-6 col-lg-4 col-xl-3">
+            @await Html.PartialAsync("Partials/_TeamCardPartial",
+                team,
+                new ViewDataDictionary(ViewData)
+                {
+                    { "viewmodel", "transfer" },
+                    {"choosedplayerid", ViewBag.PlayerId}
+                })
 
-    </div>
-}
+        </div>
+    }
+</div>
+<div>
+    <a asp-controller="Transfers" asp-action="PlayersIndex" class="btn btn-outline-primary btn-lg m-4">Back to Players</a>
+</div>

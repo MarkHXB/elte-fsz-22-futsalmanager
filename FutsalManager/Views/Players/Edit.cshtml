@@ -4,15 +4,23 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
+<div class="text-center mt-4 mb-4">
 <h4>Edit @Model.FullName</h4>
+</div>
 <hr/>
-<div class="container d-flex flex-column justify-content-center">
+<div class="container d-flex flex-column justify-content-center align-items-center">
     <form asp-action="Edit">
+        <article>
+            <h5>Set player's details</h5>
+            <p>
+                In this section you can set the details for the player.
+                <br/>About information.
+            </p>
+        </article>
+        <hr class="w-50 mx-auto">
         <div id="personal-information">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" asp-for="Id"/>
+            <input type="hidden" asp-for="Id"/>
             <div class="form-group">
                 <label asp-for="FirstName" class="control-label"></label>
                 <input asp-for="FirstName" class="form-control"/>
@@ -48,7 +56,15 @@
         </div>
 
         <hr>
-
+        <article>
+            <h5>Set skills</h5>
+            <p>
+                In this section you can set the attributes for the player.<br/>The value could be between 0 and 100.
+                <br/>
+                100 the best value of a skill. <i class="text-muted">For example: if a player's Dribbling skill is 95 that means he is master of dribbling.</i>
+            </p>
+        </article>
+        <hr class="w-50 mx-auto">
         <div class="form-group range-group" id="attributecontainer">
             <h4>
                 <label asp-for="Attribute.Dribbling" class="control-label attribute-title"></label>
@@ -111,7 +127,16 @@
         </div>
 
         <hr>
-
+        <article>
+            <h5>Set position on the field</h5>
+            <p>
+                In this section you can set the position for the player.
+                <br/>Which is the best position for the player on field.
+                <br/>
+                <i class="text-muted">For example: if the player has the ability to dribble and shoot then he is probably a winger.</i>
+            </p>
+        </article>
+        <hr class="w-50 mx-auto">
         <div class="form-group" id="positionscontainer">
             @if (ViewBag.Positions != null)
             {
@@ -130,14 +155,12 @@
         <hr>
 
         <div class="form-group text-center">
-            <input type="submit" value="Finish" class="btn btn-success"/>
+            <input type="submit" value="Finish" class="btn btn-success btn-lg m-4"/> | 
+            <a asp-action="Index" class="btn btn-outline-primary btn-lg m-4">Back to List</a>
         </div>
     </form>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
@@ -153,10 +176,12 @@
     </script>
     <script>
     $(".range-group").each(function (){
-        let title = $(this).find(".attribute-title").text();
-                     
+        let title = $(this).find(".attribute-title");
+        let titleText = title.text();
+        let defaultTitle = title.text()+" - "+$(this).find(".form-range").val();
+        title.text(defaultTitle);
         $(this).find(".form-range").change(function (){
-                $(this).parent().find(".attribute-title").text(title+" - "+$(this).val());
+                $(this).parent().find(".attribute-title").text(titleText+" - "+$(this).val());
             });
         });    
     </script>

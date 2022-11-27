@@ -4,49 +4,55 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
-
-<h4>Team</h4>
+<div class="text-center mt-4 mb-4">
+    <h4>Create a new Team</h4>
+</div>
 <hr/>
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create" asp-controller="Teams" method="post" enctype = "multipart/form-data">
+<div class="container d-flex flex-column justify-content-center align-items-center">
+    <div class="col-md-8">
+        <form asp-action="Create" asp-controller="Teams" method="post" enctype="multipart/form-data">
+            <article>
+                <h5>Set teams's details</h5>
+                <p>
+                    In this section you can set the details about team.
+                    <br/>
+                    <span class="text-muted">Information about team.</span>
+                </p>
+            </article>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
+            <div class="form-group mt-2 mb-3">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control"/>
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mt-2 mb-3">
                 <label asp-for="City" class="control-label"></label>
                 <input asp-for="City" class="form-control"/>
                 <span asp-validation-for="City" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mt-2 mb-3">
                 <label asp-for="Email" class="control-label"></label>
                 <input asp-for="Email" class="form-control"/>
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mt-2 mb-3">
                 <label asp-for="PhoneNumber" class="control-label"></label>
                 <input asp-for="PhoneNumber" class="form-control"/>
                 <span asp-validation-for="PhoneNumber" class="text-danger"></span>
             </div>
-            <div class="form-group">
+            <div class="form-group mt-2 mb-3">
                 <label asp-for="FileModel" class="control-label"></label>
                 <input type="file" accept="image/png, image/jpg, image/jpeg, image/jfif" asp-for="FileModel" class="form-control"/>
                 <span asp-validation-for="FileModel" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary"/>
+            <div class="form-group mt-2 mb-3 text-center">
+                <input type="submit" value="Create" class="btn btn-primary btn-lg m-4"/> |
+                <a asp-action="Index" class="btn btn-outline-primary btn-lg m-4">Back to List</a>
             </div>
         </form>
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
 
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }

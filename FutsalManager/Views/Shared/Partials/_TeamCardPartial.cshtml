@@ -38,10 +38,10 @@
             else if (mode == "transfer")
             {
                 int? playerid = ViewData["choosedplayerid"] as int? ?? 0;
-                <form asp-controller="Transfers" asp-action="Transfer" method="post" class="col col-12 p-1 mt-1 btn btn-primary">
+                <form asp-controller="Transfers" asp-action="Transfer" method="post" class="col col-12 p-1 mt-1 w-100">
                     <input hidden name="playerid" value="@playerid" />
                     <input hidden name="teamid" value="@Model.Id" />
-                    <input type="submit" value="Choose team" class="btn btn-primary"/>
+                    <input type="submit" value="Choose team" class="btn btn-primary w-100"/>
                 </form>
             }
         </div>

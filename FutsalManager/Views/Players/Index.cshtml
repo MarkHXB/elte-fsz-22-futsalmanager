@@ -29,7 +29,9 @@
         <th data-field="nationality" data-filter-control="input" data-sortable="true">Nationality</th>
         <th data-field="age" data-filter-control="input" data-sortable="true">Age</th>
         <th data-field="rating" data-filter-control="input" data-sortable="true">Rating</th>
-        <th data-field="note">Action</th>
+        <th data-field="note1"></th>
+        <th data-field="note2"></th>
+        <th data-field="note3"></th>
     </tr>
     </thead>
     <tbody>
@@ -37,8 +39,6 @@
     @foreach (var player in Model)
     {
         var nat = player.Nationality[..2].ToLower();
-        var actionUrl = ViewData["actionurl"];
-        var actionTitle = ViewData["actiontitle"];
 
         <tr class="shadow-sm box h-100">
             <td>
@@ -48,7 +48,7 @@
                 <img src="~/uploads/teams/logos/@logoPathPart" alt="team's logo" style="max-width:5rem" class="rounded">
             </td>
             <td>
-                <h4>@Html.DisplayFor(modelItem => player.FullName)</h4>
+                <h5>@Html.DisplayFor(modelItem => player.FullName)</h5>
             </td>
 
             <td>
@@ -61,17 +61,24 @@
             </td>
 
             <td>
-                @Html.DisplayFor(modelItem => player.Age)
+                <h5> @Html.DisplayFor(modelItem => player.Age)</h5>  
             </td>
 
             <td>
-                <strong>@PlayerFunctions.GetOverallRating(player)</strong>
+                <h5>@PlayerFunctions.GetOverallRating(player)</h5>
             </td>
 
             <td>
-                <a href="@actionUrl" class="btn btn-primary" id="playerpartialactionbutton">@actionTitle</a>
-            </td>
+                <a href="/Players/Details/@player.Id" class="btn btn-primary">Details</a>
 
+            </td>
+            <td>
+                <a href="/Players/Edit/@player.Id" class="btn btn-success">Edit</a>
+
+            </td>
+            <td>
+                <a href="/Players/Delete/@player.Id" class="btn btn-danger">Delete</a>
+            </td>
         </tr>
     }
     </tbody>

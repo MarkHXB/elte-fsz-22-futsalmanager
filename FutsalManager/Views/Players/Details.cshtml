@@ -7,10 +7,8 @@
 }
 
 <link rel="stylesheet" href="~/css/Player/attribute.css"/>
-<link rel="stylesheet" href="~/css/Player/transfer.css"/>
 
 <style>
-
 .hidden{
     display: none;
 }
@@ -19,21 +17,21 @@ margin-left:20px;
 margin-right: 20px;
 font-size: 2rem; 
 }
-
 </style>
+
 <div class="container d-flex justify-content-end align-items-center m-3">
-    <a class="action-icon" asp-controller="Players" asp-action="Edit" asp-route-id="@Model.Id">
+    <a class="action-icon" asp-controller="Players" asp-action="Edit" asp-route-id="@Model.Id" title="Edit @Model.FullName">
         <i class="bi bi-pencil-square" style="color: blue;"></i>
     </a>
-    <a class="action-icon" asp-controller="Transfers" asp-action="TeamsIndex" asp-route-playerid="@Model.Id">
+    <a class="action-icon" asp-controller="Transfers" asp-action="TeamsIndex" asp-route-playerid="@Model.Id" title="Transfer @Model.FullName">
         <i class="bi bi-binoculars" style="color:green"></i>
     </a>
-    <a class="action-icon" asp-controller="Players" asp-action="Delete" asp-route-id="@Model.Id">
+    <a class="action-icon" asp-controller="Players" asp-action="Delete" asp-route-id="@Model.Id" title="Delete @Model.FullName">
         <i class="bi bi-person-dash" style="color: red;"></i>
     </a>
     @if (Model.Team != null)
     {
-        <a class="action-icon" asp-controller="Teams" asp-action="Details" asp-route-id="@Model.Team.Id">
+        <a class="action-icon" asp-controller="Teams" asp-action="Details" asp-route-id="@Model.Team.Id" title="Details about @Model.FullName's team">
             <i class="bi bi-people" style="color: purple;"></i>
         </a>
     }
@@ -50,7 +48,7 @@ font-size: 2rem;
     </div>
     <div class="card-body" id="details-body" style="display: block">
         <!-- Player information -->
-        <a class="action-icon d-flex justify-content-end" asp-controller="Players" asp-action="Edit" asp-route-id="@Model.Id">
+        <a class="action-icon d-flex justify-content-end" asp-controller="Players" asp-action="Edit" asp-route-id="@Model.Id" title="Edit @Model.FullName">
             <i class="bi bi-pencil-square" style="color: blue;"></i>
         </a>
         <div class="row text-center">
@@ -60,7 +58,7 @@ font-size: 2rem;
                     <h6>Current team</h6>
                     @if (!string.IsNullOrWhiteSpace(Model.Team.LogoPath))
                     {
-                        <img src="@("~/uploads/teams/logos/" + Model.Team.LogoPath)" asp-append-version="true" class="w-50 rounded">              
+                        <img src="@("~/uploads/teams/logos/" + Model.Team.LogoPath)" asp-append-version="true" class="w-50 rounded">
                     }
                     else
                     {
@@ -76,34 +74,39 @@ font-size: 2rem;
                 }
 
             </div>
-            <div class="col col-sm-12 col-md-12 col-lg-6 p-2 ">
+            <div class="col col-sm-12 col-md-12 col-lg-6 p-2 d-flex flex-column align-items-center justify-content-center">
                 <h6>Details about player</h6>
 
                 <hr class="w-50 mx-auto"/>
 
-                <div id="name">
-                    <span class="badge bg-secondary p-2 mb-2">Name</span>
+                <div id="name" class="shadow p-3 mb-5 bg-light rounded w-75">
+                    <div class="text-start rounded w-25 bg-primary text-light">
+                        <h5 class="text-center p-1">Name</h5>
+                    </div>
                     <h4>@Model.FullName</h4>
                 </div>
 
-                <hr class="w-75 mx-auto"/>
 
-                <div id="age">
-                    <span class="badge bg-secondary p-2 mb-2">Age</span>
+                <div id="age" class="shadow p-3 mb-5 bg-light rounded w-75">
+                    <div class="text-start rounded w-25 bg-primary text-light">
+                        <h5 class="text-center p-1">Age</h5>
+                    </div>
                     <h4>@Model.Age</h4>
                 </div>
 
-                <hr class="w-75 mx-auto"/>
 
-                <div id="birthday">
-
-                    <span class="badge bg-secondary p-2 mb-2">Birthday</span>
+                <div id="birthday" class="shadow p-3 mb-5 bg-light rounded w-75">
+                    <div class="text-start rounded w-25 bg-primary text-light">
+                        <h5 class="text-center p-1">Birthday</h5>
+                    </div>
                     <h4>@Model.Birthday.ToShortDateString()</h4>
                 </div>
 
-                <hr class="w-75 mx-auto"/>
 
-                <div id="nationality" class="text-center">
+                <div id="nationality" class="shadow p-3 mb-5 bg-light rounded w-75 text-center">
+                    <div class="text-start rounded w-25 bg-primary text-light">
+                        <h5 class="text-center p-1">Nationality</h5>
+                    </div>
                     <img
                         src="@natUrl"
                         alt="@Model.Nationality"
@@ -112,10 +115,11 @@ font-size: 2rem;
 
                 </div>
 
-                <hr class="w-75 mx-auto"/>
 
-                <div id="activity">
-                    <span class="badge bg-@(Model.IsActive ? "success" : "warning") p-2 mb-2">Is active?</span>
+                <div id="activity" class="shadow p-3 mb-5 bg-light rounded w-75">
+                    <div class="text-start rounded w-25 bg-@(Model.IsActive ? "success" : "warning") text-light">
+                        <h5 class="text-center p-1">Is Active?</h5>
+                    </div>
                     <h4>@(Model.IsActive ? "Yes" : "No")</h4>
                 </div>
             </div>
@@ -167,9 +171,43 @@ font-size: 2rem;
     </div>
 }
 
+
+<style>
+
+.progress{
+display: unset;
+height: unset;
+overflow: unset;
+background:unset;
+border-radius: unset;
+font-size: unset;
+
+  position: relative;
+  margin: 4px;
+  float:left;
+  text-align: center;
+}
+.barOverflow{ /* Wraps the rotating .bar */
+  position: relative;
+  overflow: hidden; /* Comment this line to understand the trick */
+  width: 90px; height: 45px; /* Half circle (overflow) */
+  margin-bottom: -14px; /* bring the numbers up */
+}
+.bar{
+  position: absolute;
+  top: 0; left: 0;
+  width: 90px; height: 90px; /* full circle! */
+  border-radius: 50%;
+  box-sizing: border-box;
+  border: 10px solid #eee;     /* half gray, */
+  border-bottom-color: #0bf;  /* half azure */
+  border-right-color: #0bf;
+}
+
+</style>
 <!--SKILLS-->
 <div class="card mt-2 mb-2">
-    <div class="card-header d-flex justify-content-between align-items-center bg-light" id="attributes-header">
+    <div class="card-header d-flex justify-content-between align-items-center bg-light" id="attributes-header" onclick="activeProgressAnimation()">
         <h3>Skills</h3>
         <div id="arrow-container">
             <i class="hidden bi bi-arrow-up"></i>
@@ -177,49 +215,118 @@ font-size: 2rem;
         </div>
     </div>
     <div class="card-body" id="attributes-body" style="display: none;">
-        <a class="action-icon d-flex justify-content-end" asp-controller="Players" asp-action="Edit" asp-route-id="@Model.Id">
+        <a class="action-icon d-flex justify-content-end" asp-controller="Players" asp-action="Edit" asp-route-id="@Model.Id" title="Edit @Model.FullName">
             <i class="bi bi-pencil-square" style="color: blue;"></i>
         </a>
         @if (Model.Attribute != null)
         {
-            <!-- Player attributes -->
-            <div class="row text-center d-flex justify-content-center" id="attributes-table">
-
-                <div class="col-sm-12 col-md-4 m-2 attribute-box">
-                    <h2 class="attribute-value">@Model.Attribute.Dribbling</h2>
-                    <h2 class="attribute-title">Dribbling</h2>
+            <div class="row">
+                <div class="d-flex flex-column align-items-center justify-content-center border border-1 rounded text-center col-sm-12 col-md-4 col-lg-4 col-xl-4">
+                    <div class="mt-2 mb-2">
+                        <div class="progress">
+                            <div class="barOverflow">
+                                <div class="bar"></div>
+                            </div>
+                            <span>@PlayerFunctions.GetOverallRating(Model)</span> / 100
+                        </div>
+                    </div>
+                    <div class="mt-2 mb-1">
+                        <h3>Overall Rating</h3>
+                    </div>
                 </div>
-                <div class="col-sm-12 col-md-4 m-2 attribute-box">
-                    <h2 class="attribute-value">@Model.Attribute.Passing</h2>
-                    <h2 class="attribute-title">Passing</h2>
+                <!-- Player attributes -->
+                <div class="row col-sm-12 col-md-8 col-lg-8 col-xl-8">
+                    <div class="col col-sm-6 col-md-4 col-lg-4 col-xl-4 d-flex flex-column align-items-center justify-content-center">
+                        <div class="progress">
+                            <div class="barOverflow">
+                                <div class="bar"></div>
+                            </div>
+                            <span>@Model.Attribute.Dribbling</span>
+                        </div>
+                        <div>
+                            <strong>@Html.DisplayNameFor(c => Model.Attribute.Dribbling)</strong>
+                        </div>
+                    </div>
+                    <div class="col col-sm-6 col-md-4 col-lg-4 col-xl-4 d-flex flex-column align-items-center justify-content-center">
+                        <div class="progress">
+                            <div class="barOverflow">
+                                <div class="bar"></div>
+                            </div>
+                            <span>@Model.Attribute.Passing</span>
+                        </div>
+                        <div>
+                            <strong>@Html.DisplayNameFor(c => Model.Attribute.Passing)</strong>
+                        </div>
+                    </div>
+                    <div class="col col-sm-6 col-md-4 col-lg-4 col-xl-4 d-flex flex-column align-items-center justify-content-center">
+                        <div class="progress">
+                            <div class="barOverflow">
+                                <div class="bar"></div>
+                            </div>
+                            <span>@Model.Attribute.Juggling</span>
+                        </div>
+                        <div>
+                            <strong>@Html.DisplayNameFor(c => Model.Attribute.Juggling)</strong>
+                        </div>
+                    </div>
+                    <div class="col col-sm-6 col-md-4 col-lg-4 col-xl-4 d-flex flex-column align-items-center justify-content-center">
+                        <div class="progress">
+                            <div class="barOverflow">
+                                <div class="bar"></div>
+                            </div>
+                            <span>@Model.Attribute.Shooting</span>
+                        </div>
+                        <div>
+                            <strong>@Html.DisplayNameFor(c => Model.Attribute.Shooting)</strong>
+                        </div>
+                    </div>
+                    <div class="col col-sm-6 col-md-4 col-lg-4 col-xl-4 d-flex flex-column align-items-center justify-content-center">
+                        <div class="progress">
+                            <div class="barOverflow">
+                                <div class="bar"></div>
+                            </div>
+                            <span>@Model.Attribute.Tackling</span>
+                        </div>
+                        <div>
+                            <strong>@Html.DisplayNameFor(c => Model.Attribute.Tackling)</strong>
+                        </div>
+                    </div>
+                    <div class="col col-sm-6 col-md-4 col-lg-4 col-xl-4 d-flex flex-column align-items-center justify-content-center">
+                        <div class="progress">
+                            <div class="barOverflow">
+                                <div class="bar"></div>
+                            </div>
+                            <span>@Model.Attribute.Reaction</span>
+                        </div>
+                        <div>
+                            <strong>@Html.DisplayNameFor(c => Model.Attribute.Reaction)</strong>
+                        </div>
+                    </div>
+                    <div class="col col-sm-6 col-md-4 col-lg-4 col-xl-4 d-flex flex-column align-items-center justify-content-center">
+                        <div class="progress">
+                            <div class="barOverflow">
+                                <div class="bar"></div>
+                            </div>
+                            <span>@Model.Attribute.Vision</span>
+                        </div>
+                        <div>
+                            <strong>@Html.DisplayNameFor(c => Model.Attribute.Vision)</strong>
+                        </div>
+                    </div>
+                    <div class="col col-sm-6 col-md-4 col-lg-4 col-xl-4 d-flex flex-column align-items-center justify-content-center">
+                        <div class="progress">
+                            <div class="barOverflow">
+                                <div class="bar"></div>
+                            </div>
+                            <span>@Model.Attribute.Positioning</span>
+                        </div>
+                        <div>
+                            <strong>@Html.DisplayNameFor(c => Model.Attribute.Positioning)</strong>
+                        </div>
+                    </div>
                 </div>
-                <div class="col-sm-12 col-md-4 m-2 attribute-box">
-                    <h2 class="attribute-value">@Model.Attribute.Juggling</h2>
-                    <h2>Juggling</h2>
-                </div>
-                <div class="col-sm-12 col-md-4 m-2 attribute-box">
-                    <h2 class="attribute-value">@Model.Attribute.Shooting</h2>
-                    <h2>Shooting</h2>
-                </div>
-                <div class="col-sm-12 col-md-4 m-2 attribute-box">
-                    <h2 class="attribute-value">@Model.Attribute.Tackling</h2>
-                    <h2>Tackling</h2>
-                </div>
-                <div class="col-sm-12 col-md-4 m-2 attribute-box">
-                    <h2 class="attribute-value">@Model.Attribute.Reaction</h2>
-                    <h2>Reaction</h2>
-                </div>
-                <div class="col-sm-12 col-md-4 m-2 attribute-box">
-                    <h2 class="attribute-value">@Model.Attribute.Vision</h2>
-                    <h2>Vision</h2>
-                </div>
-                <div class="col-sm-12 col-md-4 m-2 attribute-box">
-                    <h2 class="attribute-value">@Model.Attribute.Positioning</h2>
-                    <h2>Positioning</h2>
-                </div>
-
+                <!-- Player attributes -->
             </div>
-            <!-- Player attributes -->
         }
         else
         {
@@ -238,32 +345,58 @@ font-size: 2rem;
             <i class="bi bi-arrow-down"></i>
         </div>
     </div>
-
+    <style>
+.dot {
+  height: 25px;
+  width: 25px;
+  margin-right: 5px;
+  background-color: dodgerblue;
+  border-radius: 50%;
+  display: inline-block;
+}
+</style>
     <div class="card-body" id="transfers-body" style="display: none;">
         <!-- Player transfer history -->
 
         @if (Model.Transfers.Any())
         {
-            <section class="py-5">
-                <ul class="timeline-with-icons">
-                    @foreach (var transfer in Model.Transfers.OrderByDescending(t => t.History).ToList())
-                    {
-                        <li class="timeline-item mb-5">
-                            <span class="timeline-icon">
-                                <img class="w-100 rounded" src="~/uploads/teams/logos/@transfer.Team.LogoPath" alt="team' logo"/>
-                            </span>
+            <ul class="mt-4 text-center">
+                @{
+                    var counter = Model.Transfers.Count;
+                }
+                @foreach (var transfer in Model.Transfers.OrderByDescending(t => t.History).ToList())
+                {
+                    int overflowCounter = 0;
+                    <div class="d-flex align-items-center justify-content-center">
+                        @for (int i = counter; i > 0; i--)
+                        {
+                            if (i > 4)
+                            {
+                                overflowCounter++;
+                            }
+                            else
+                            {
+                                <span class="dot mt-2 mb-2"></span>
+                            }
+                        }
+                        @if (overflowCounter > 0)
+                        {
+                            <span style="display:inline-block;height:25px;width: 25px">+@overflowCounter</span>
+                        }
+                    </div>
 
-                            <h5 class="fw-bold">@transfer.Team.Name</h5>
-                            <p class="text-muted mb-2 fw-bold">@transfer.History.ToShortDateString()</p>
-                            <p class="text-muted">
-                                asdőpsődpsld
-                            </p>
-                        </li>
+                    <div class="timeline-item rounded border border-1 p-1">
+                        @{
+                            var logoPathPart = string.IsNullOrEmpty(transfer.Team.LogoPath) ? "default.png" : transfer.Team.LogoPath;
+                        }
+                        <img src="@("~/uploads/teams/logos/" + logoPathPart)" asp-append-version="true" class="w-50 rounded" style="max-width:100px" alt="team's logo"/>
+                        <h5 class="my-3">@transfer.History.ToShortDateString()</h5>
+                        <h6>Transfered @transfer.Player.FullName to @transfer.Team.Name at @transfer.History.</h6>
+                    </div>
+                    counter--;
+                }
 
-                        <hr/>
-                    }
-                </ul>
-            </section>
+            </ul>
         }
         else
         {
@@ -278,46 +411,53 @@ font-size: 2rem;
 
 @section Scripts{
     <script>
+    function activeProgressAnimation(){
+    $(".progress").toggleClass("activated");
+    if ($(".progress").hasClass("activated"))
+    {
+        $(".progress").each(function(){
+            
+          var $bar = $(this).find(".bar");
+          var $val = $(this).find("span");
+          var perc = parseInt( $val.text(), 10);
+        
+          $({p:0}).animate({p:perc}, {
+            duration: 1500,
+            easing: "swing",
+            step: function(p) {
+                if(p >= 90){
+                    $bar.css("border-bottom-color","#0bf");
+                    $bar.css("border-right-color","#0bf");
+                    }
+                else if(p >= 75){
+                    $bar.css("border-bottom-color","green");
+                                    $bar.css("border-right-color","green");
+                    }
+                else if(p >= 50){
+                                $bar.css("border-bottom-color","orange");
+                                                $bar.css("border-right-color","orange");
+                                }
+                else{
+                    $bar.css("border-bottom-color","red");
+                                    $bar.css("border-right-color","red");
+                    }
+              $bar.css({
+                transform: "rotate("+ (45+(p*1.8)) +"deg)", // 100%=180° so: ° = % * 1.8
+                // 45 is to add the needed rotation to have the green borders at the bottom
+              });
+              $val.text(p|0);
+            }
+          });
+        });
+    }
+    }
+    </script>
+    <script>
     $(".card").find(".card-header").click(function() {
         let $arrows = $(this).find("i");
         $(this).parent().find(".card-body").slideToggle(function (){
             $arrows.toggle();
             });
     });
-    $('#attributes-table').children().each(function(index, value) {
-      let att = $(this).find(".attribute-value");
-      if (att.text() > 90)
-          {
-               att.css("color","rgb(3,111,252)");
-               $(this).addClass("attribute-box-cyan");
-              }
-         
-      else if (att.text() >= 85)
-          {
-                        att.css("color","green"); 
-
-              $(this).addClass("attribute-box-green");
-              }
-      else if (att.text() >= 35)
-          {
-               att.css("color","orange"); 
-                                        $(this).addClass("attribute-box-orange");
-
-              }
-      else
-          {
-              
-                                     $(this).addClass("attribute-box-red");                 
-                        att.css("color","red"); 
-
-              }
-      
-    });
-                    // $("#details-header").click(function() {
-                    //     let $arrows = $(this).find("i");
-                    //     $("#details-body").slideToggle(function() {
-                    //       $arrows.toggle();
-                    //     });
-                    // });
                     </script>
 }

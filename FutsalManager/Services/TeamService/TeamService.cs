@@ -25,6 +25,7 @@ namespace FutsalManager.Services.TeamService
 
             var team = await _context.Teams
                 .Include(t=>t.Transfers)
+                .ThenInclude(t=>t.Player)
                 .Include(p=>p.Players)
                 .ThenInclude(p=>p.Attribute)
                 .Include(p=>p.Players)
