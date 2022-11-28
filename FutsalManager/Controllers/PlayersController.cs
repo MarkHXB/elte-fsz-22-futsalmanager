@@ -60,16 +60,21 @@ namespace FutsalManager.Controllers
         {
             var positions = await _positionService.GetPositionsAsync();
             var teams = await _teamService.GetTeamsAsync();
+            List<Team> freeTeams = new();
+            foreach (Team team in teams)
+            {
+                if(await _teamService.CheckFreeSpaceInTeam(team.Id))
+                    freeTeams.Add(team);
+            }
             
             ViewBag.Positions = positions;
-            ViewBag.Teams = teams;
+            ViewBag.Teams = freeTeams;
             
             return View();
         }
 
         // POST: Players/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(Player player)
@@ -105,7 +110,6 @@ namespace FutsalManager.Controllers
 
         // POST: Players/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Player player)
@@ -149,7 +153,7 @@ namespace FutsalManager.Controllers
 
             bool? success = await _playerService.SetActivityAsync(id, activity);
 
-            return RedirectToAction(nameof(Index), success);
+            return RedirectToAction(nameof(Index), "Home",success);
         }
 
         // POST: Players/Delete/5

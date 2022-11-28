@@ -103,6 +103,7 @@ namespace FutsalManager.Services.PlayerService
 
             return (await _context.SaveChangesAsync()) > 0;
         }
+        
         public async Task<bool> SetActivityAsync(int? id, bool activity)
         {
             if (id == null) return false;
@@ -131,6 +132,13 @@ namespace FutsalManager.Services.PlayerService
                 .ToListAsync();
 
             return result;
+        }
+
+        public async Task<bool> IsActive(int? id)
+        {
+            var player = await GetPlayerAsync(id);
+
+            return player == null || player.IsActive;
         }
     }
 }

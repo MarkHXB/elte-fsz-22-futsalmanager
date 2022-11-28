@@ -19,12 +19,9 @@ namespace FutsalManager.Controllers
         {
             var teams = await _teamService.GetTeamsAsync();
 
-            return View(teams);
-        }
+            ViewBag.CanCreateNewTeam = _teamService.CheckCapacity();
 
-        public IActionResult Search()
-        {
-            return Ok();
+            return View(teams);
         }
 
         // GET: Teams/Details/5
@@ -41,6 +38,8 @@ namespace FutsalManager.Controllers
         // GET: Teams/Create
         public IActionResult Create()
         {
+            if (!_teamService.CheckCapacity()) return RedirectToAction(nameof(Index));
+            
             return View();
         }
         // POST: Teams/Create
@@ -48,6 +47,8 @@ namespace FutsalManager.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,City,Email,PhoneNumber,FileModel")] Team team)
         {
+            if (!_teamService.CheckCapacity()) return RedirectToAction(nameof(Index));
+            
             if (!ModelState.IsValid) return View(team);
 
             FileUpload.UploadTeamLogo(team);

@@ -58,7 +58,7 @@ namespace FutsalManager.Data
                 entity.Property(e => e.FirstName).HasMaxLength(50);
 
                 entity.Property(e => e.LastName).HasMaxLength(50);
-                
+
                 entity.Property(e => e.Nationality).HasMaxLength(50);
 
                 entity.HasOne(d => d.Attribute)

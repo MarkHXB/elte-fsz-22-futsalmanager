@@ -46,9 +46,11 @@ namespace FutsalManager.Controllers
         {
             if (playerid == null) return RedirectToAction(nameof(PlayersIndex));
             
+            if(await _playerService.IsActive(playerid)) return RedirectToAction(nameof(PlayersIndex));
+            
             var teams = await _teamService.GetTeamsAsync();
 
-            var freeTeams = await teams.Where(t => t.Players.Count <= 5).ToListAsync();
+            var freeTeams = await teams.Where(t => t.Players.Count < 5).ToListAsync();
 
             ViewBag.PlayerId = playerid;
             
@@ -58,6 +60,8 @@ namespace FutsalManager.Controllers
         [HttpPost]
         public async Task<IActionResult> Transfer(int? playerid, int? teamid)
         {
+            if (!await _teamService.CheckFreeSpaceInTeam(teamid)) return RedirectToAction(nameof(TeamsIndex), playerid);
+            
             if (playerid == null || teamid == null) return RedirectToAction(nameof(TeamsIndex), playerid);
 
             var player = await _playerService.GetPlayerAsync(playerid);

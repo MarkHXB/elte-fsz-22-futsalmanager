@@ -20,12 +20,12 @@ namespace FutsalManager.Services.TransferService
         {
             if (player == null) return false;
 
-            if (player.IsActive) return false;
-            
             var team = _context.Teams.FirstOrDefault(t => t.Id == player.TeamId);
             player.Team = team;
 
             if (player?.Team == null) return false;
+
+            player.IsActive = true;
             
             _context.Players.Add(player);
             
@@ -40,7 +40,7 @@ namespace FutsalManager.Services.TransferService
             
             return (await SaveTransferAsync(transfer));
         }
-        
+
         public async Task<bool> CreateTransferAsync(Player? player, Team? team)
         {
             if (player == null || team == null) return false;
@@ -51,8 +51,6 @@ namespace FutsalManager.Services.TransferService
 
             if (IsPlayerInAlreadyInSameTeam(player, team)) return false;
 
-            if (player.IsActive) return false;
-            
             var transfer = new Transfer()
             {
                 Player = player,
@@ -64,9 +62,7 @@ namespace FutsalManager.Services.TransferService
             team.Players.Add(player);
             
             SetActiveStatusPlayer(player);
-            // SetPlayerTransaction(player, team,transfer);
-            // SetTeamTransaction(team, player, transfer);
-            
+
             return (await SaveTransferAsync(transfer));
         }
 

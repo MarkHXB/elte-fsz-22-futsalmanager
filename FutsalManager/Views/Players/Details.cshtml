@@ -23,9 +23,12 @@ font-size: 2rem;
     <a class="action-icon" asp-controller="Players" asp-action="Edit" asp-route-id="@Model.Id" title="Edit @Model.FullName">
         <i class="bi bi-pencil-square" style="color: blue;"></i>
     </a>
-    <a class="action-icon" asp-controller="Transfers" asp-action="TeamsIndex" asp-route-playerid="@Model.Id" title="Transfer @Model.FullName">
-        <i class="bi bi-binoculars" style="color:green"></i>
-    </a>
+    @if (!Model.IsActive)
+    {
+        <a class="action-icon" asp-controller="Transfers" asp-action="TeamsIndex" asp-route-playerid="@Model.Id" title="Transfer @Model.FullName">
+            <i class="bi bi-binoculars" style="color:green"></i>
+        </a>
+    }
     <a class="action-icon" asp-controller="Players" asp-action="Delete" asp-route-id="@Model.Id" title="Delete @Model.FullName">
         <i class="bi bi-person-dash" style="color: red;"></i>
     </a>

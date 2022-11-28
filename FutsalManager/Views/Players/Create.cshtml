@@ -1,14 +1,14 @@
 ﻿@model Player
 
 @{
-    ViewData["Title"] = "Create";
+    ViewData["Title"] = "Add new Player";
 }
 <div class="text-center mt-4 mb-4">
     <h4>Create a new player</h4>
 </div>
 <hr/>
 <div class="container d-flex flex-column justify-content-center align-items-center">
-    <article>
+    <article class="text-start">
         <h5>Set player's details</h5>
         <p>
             In this section you can set the details for the player.
@@ -51,9 +51,9 @@
         <div class="form-group d-flex align-items-center justify-content-around">
             <a class="btn btn-primary mt-2 mb-2" href="#teamscontainer">Next</a>
         </div>
-        
+
         <hr>
-<article>
+        <article>
             <h5>Choose the team for the player</h5>
             <p>
                 In this section you can transfer by default the player into a team.
@@ -74,6 +74,7 @@
                     </div>
                 }
             }
+            <span asp-validation-for="TeamId" class="text-danger"></span>
             <div class="form-group d-flex align-items-center justify-content-around">
                 <a class="btn btn-primary mt-2 mb-2" href="#attributecontainer">Next</a>
             </div>
@@ -145,7 +146,7 @@
             <input type="range" asp-for="Attribute!.Positioning" class="form-range" value="50" step="1" max="100" min="1"/>
             <span asp-validation-for="Attribute!.Positioning" class="text-danger"></span>
         </div>
-
+        <span asp-validation-for="AttributeId" class="text-danger"></span>
         <div class="form-group text-center">
             <a class="btn btn-primary mt-2 mb-2" href="#positionscontainer" id="attributesclicker">Next</a>
         </div>
@@ -174,12 +175,13 @@
                     </div>
                 }
             }
+            <span asp-validation-for="PositionId" class="text-danger"></span>
         </div>
 
         <hr>
 
         <div class="form-group text-center">
-            <input type="submit" value="Finish" class="btn btn-success btn-lg m-4"/> | 
+            <input type="submit" value="Finish" class="btn btn-success btn-lg m-4"/> |
             <a asp-action="Index" class="btn btn-outline-primary btn-lg m-4">Back to List</a>
         </div>
     </form>

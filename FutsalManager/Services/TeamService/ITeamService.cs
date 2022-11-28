@@ -8,5 +8,7 @@
         Task<bool> UpdateTeamAsync(Team team);
         Task<bool> DeleteTeamAsync(int id);
         Task<List<Team>> SearchTeamsAsync(string searchstring);
+        bool CheckCapacity();
+        Task<bool> CheckFreeSpaceInTeam(int? teamId);
     }
 }

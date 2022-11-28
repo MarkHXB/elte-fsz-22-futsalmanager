@@ -7,8 +7,8 @@
         Task CreatePlayerAsync(Player player);
         Task<bool> UpdatePlayerAsync(Player player);
         Task<bool> DeletePlayerAsync(int? id);
-
         Task<bool> SetActivityAsync(int? id, bool activity);
         Task<List<Player>> SearchPlayersAsync(string searchstring);
+        Task<bool> IsActive(int? id);
     }
 }

@@ -67,5 +67,19 @@ namespace FutsalManager.Services.TeamService
 
             return result;
         }
+
+        public bool CheckCapacity()
+        {
+            return _context.Teams.Count() < 10;
+        }
+
+        public async Task<bool> CheckFreeSpaceInTeam(int? teamId)
+        {
+            var team = await GetTeamAsync(teamId);
+
+            if (team == null) return false;
+
+            return team.Players.Count < 5;
+        }
     }
 }
