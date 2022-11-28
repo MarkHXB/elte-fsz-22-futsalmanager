@@ -3,11 +3,12 @@
 =======================
 ## Features
 - Local database communication
-- It run on web
+- It runs on web
 - You can manage futsal <strong>teams</strong> and do CRUD on them
 - You can manage futsal <strong>players</strong> and do CRUD on them
 - You can transfer players between teams
 - Active / Inactive players status
+- Darg&Drop Transfer Players
 
 ## Development
 
