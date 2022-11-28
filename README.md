@@ -3,16 +3,17 @@
 =======================
 ## Features
 - Local database communication
-- It run on web
+- It runs on web
 - You can manage futsal <strong>teams</strong> and do CRUD on them
 - You can manage futsal <strong>players</strong> and do CRUD on them
 - You can transfer players between teams
 - Active / Inactive players status
+- Darg&Drop Transfer Players
 
 ## Development
 
 - IDE: Jetbrains Rider
-- Language: C# 11.0
+- Language: C# 10.0
 - SDK: .NET Core 6.0
 
 ## Build
@@ -25,7 +26,6 @@
 
 ## How it works
 <strong><i>The soul of the application is in Program.cs.</i></strong>
-Program.cs
 ```C#
 global using FutsalManager.Models;
 global using FutsalManager.Data;
