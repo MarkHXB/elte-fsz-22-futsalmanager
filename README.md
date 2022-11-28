@@ -12,7 +12,7 @@
 ## Development
 
 - IDE: Jetbrains Rider
-- Language: C# 11.0
+- Language: C# 10.0
 - SDK: .NET Core 6.0
 
 ## Build
