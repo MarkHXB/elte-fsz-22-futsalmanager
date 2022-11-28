@@ -9,7 +9,7 @@
     <a asp-action="Create" style="font-size:1.5rem"><i class="bi bi-person-plus" style="margin-right:10px;font-size:2rem"></i> Add new Player</a>
 </div>
 
-<hr class="mx-auto w-75"/>
+<hr class="mx-auto w-75 mt-4 mb-4"/>
 
 <link href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css" rel="stylesheet">
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
@@ -19,9 +19,7 @@
 
 <table class="table text-center"
        data-toggle="table"
-       data-search="true"
-       data-filter-control="true"
-       data-pagination="true">
+       data-filter-control="true">
     <thead>
     <tr>
         <th>Team</th>
@@ -32,6 +30,7 @@
         <th data-field="note1"></th>
         <th data-field="note2"></th>
         <th data-field="note3"></th>
+        <th data-field="note4"></th>
     </tr>
     </thead>
     <tbody>
@@ -61,7 +60,7 @@
             </td>
 
             <td>
-                <h5> @Html.DisplayFor(modelItem => player.Age)</h5>  
+                <h5> @Html.DisplayFor(modelItem => player.Age)</h5>
             </td>
 
             <td>
@@ -78,6 +77,13 @@
             </td>
             <td>
                 <a href="/Players/Delete/@player.Id" class="btn btn-danger">Delete</a>
+            </td>
+            <td>
+                @{
+                    var activateTitle = player.IsActive ? "Inactivate" : "Activate";
+                    var activateStyle = player.IsActive ? "secondary" : "warning";
+                }
+                <a asp-controller="Players" asp-action="SetActivity" asp-route-id="@player.Id" asp-route-activity="@(!player.IsActive)" class="btn btn-@activateStyle">@activateTitle</a>
             </td>
         </tr>
     }

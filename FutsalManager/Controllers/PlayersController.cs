@@ -28,19 +28,10 @@ namespace FutsalManager.Controllers
         }
 
         // GET: Players
-        public async Task<IActionResult> Index(bool? operationExecutedSuccessfully)
+        public async Task<IActionResult> Index()
         {
             var players = await _playerService.GetPlayersAsync();
 
-            // var pageNumber = page ?? 1;
-            //
-            // ViewBag.PagedPlayersList = players.ToPagedList(pageNumber, 10);
-
-            if (operationExecutedSuccessfully != null)
-                ViewBag.ErrorMessage = (operationExecutedSuccessfully == false
-                    ? "The operation you requested didn't executed successfully."
-                    : string.Empty);
-            
             return View(players);
         }
 
@@ -153,7 +144,7 @@ namespace FutsalManager.Controllers
 
             bool? success = await _playerService.SetActivityAsync(id, activity);
 
-            return RedirectToAction(nameof(Index), "Home",success);
+            return RedirectToAction(nameof(Index));
         }
 
         // POST: Players/Delete/5

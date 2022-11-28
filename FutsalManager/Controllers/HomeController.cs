@@ -84,7 +84,7 @@ public class HomeController : Controller
             var teamid = model.Teams[i];
             var player = await _playerService.GetPlayerAsync(playerid);
             var team = await _teamService.GetTeamAsync(teamid);
-
+        
             var success = await _transferService.CreateTransferAsync(player, team);
         }
         

@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "4GL5Bc0ArGRHlx6xDGtba1yX+GrNGJu72tGmkm7xLxQ=",
+  "Hash": "uj4rtyuoKCPRCYFKIvs7YTtY6tNWereJapeDoHQNnHs=",
   "Source": "FutsalManager",
   "BasePath": "_content/FutsalManager",
   "Mode": "Default",
@@ -253,6 +253,23 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "wwwroot\\icons\\ball.svg"
+    },
+    {
+      "Identity": "C:\\Users\\bakon\\Desktop\\ELTE\\WEB3 - C#\\futsalmanager-mvc\\FutsalManager\\wwwroot\\icons\\soccer.png",
+      "SourceId": "FutsalManager",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\bakon\\Desktop\\ELTE\\WEB3 - C#\\futsalmanager-mvc\\FutsalManager\\wwwroot\\",
+      "BasePath": "_content/FutsalManager",
+      "RelativePath": "icons/soccer.png",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\icons\\soccer.png"
     },
     {
       "Identity": "C:\\Users\\bakon\\Desktop\\ELTE\\WEB3 - C#\\futsalmanager-mvc\\FutsalManager\\wwwroot\\img\\glyphicons-halflings-white.png",
