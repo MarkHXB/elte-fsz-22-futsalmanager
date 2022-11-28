@@ -25,7 +25,6 @@
 
 ## How it works
 <strong><i>The soul of the application is in Program.cs.</i></strong>
-Program.cs
 ```C#
 global using FutsalManager.Models;
 global using FutsalManager.Data;
