@@ -479,4 +479,4 @@ $RECYCLE.BIN/
 *.lnk
 
 #wwwroot static scripts
-./wwwroot/lib
+./wwwroot/lib/
