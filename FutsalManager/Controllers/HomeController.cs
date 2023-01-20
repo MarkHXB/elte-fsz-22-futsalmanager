@@ -76,6 +76,8 @@ public class HomeController : Controller
     [HttpPost]
     public async Task<IActionResult> SaveInactivePlayers(InactivePlayersViewModel model)
     {
+        if(model.Players == null || model.Teams == null) return RedirectToAction(nameof(InactivePlayers));
+    
         int length = model.Players.Count;
         
         for (int i = 0; i < length; i++)
